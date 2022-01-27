@@ -1,10 +1,13 @@
 * =Khala= - An HTTP server for prompting
 
-=Khala= is the Brain-to-Brain interface for =Pen.el=.
+=Khala= is the Mind-to-Mind interface for =Pen.el=.
 
 "The Khala was created in our darkest moment. Only its light was able to bind
 our people-to give us unity. We are born into it, and when we die, our spirits
 become one with it."
+
+Khala is an HTTP server which connects Pen.el nodes together.
+Using Khala humans and AIs can prompt eachother in a peer-to-peer network.
 
 ** Installation
 Download from http://github.com/semiosis/khala.
