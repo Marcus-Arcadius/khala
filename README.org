@@ -2,6 +2,10 @@
 
 =Khala= is the Brain-to-Brain interface for =Pen.el=.
 
+"The Khala was created in our darkest moment. Only its light was able to bind
+our people-to give us unity. We are born into it, and when we die, our spirits
+become one with it."
+
 ** Installation
 Download from http://github.com/semiosis/khala.
 

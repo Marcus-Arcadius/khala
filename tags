@@ -1,0 +1,24 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/d5bcb52b/
+-main	src/khala/core.clj	/^(defn -main [& args]$/;"	f	namespace:khala.core
+0.1.0 - 2022-01-23	CHANGELOG.md	/^## 0.1.0 - 2022-01-23$/;"	s
+Added	CHANGELOG.md	/^### Added$/;"	S
+Change Log	CHANGELOG.md	/^# Change Log$/;"	c
+Changed	CHANGELOG.md	/^### Changed$/;"	S
+Fixed	CHANGELOG.md	/^### Fixed$/;"	S
+Introduction to khala	doc/intro.md	/^# Introduction to khala$/;"	c
+Removed	CHANGELOG.md	/^### Removed$/;"	S
+[0.1.1] - 2022-01-23	CHANGELOG.md	/^## [0.1.1] - 2022-01-23$/;"	s
+[Unreleased]	CHANGELOG.md	/^## [Unreleased]$/;"	s
+app	src/khala/core.clj	/^(defn app [req]$/;"	f	namespace:khala.core
+artifactId	target/default/classes/META-INF/maven/khala/khala/pom.properties	/^artifactId=khala$/;"	k
+groupId	target/default/classes/META-INF/maven/khala/khala/pom.properties	/^groupId=khala$/;"	k
+khala.core	src/khala/core.clj	/^(ns khala.core$/;"	n
+khala.core-test	test/khala/core_test.clj	/^(ns khala.core-test$/;"	n
+revision	target/default/classes/META-INF/maven/khala/khala/pom.properties	/^revision=744b2fa2a8a388b063f66997c26fc6b9d02731ba$/;"	k
+version	target/default/classes/META-INF/maven/khala/khala/pom.properties	/^version=0.1.0-SNAPSHOT$/;"	k
