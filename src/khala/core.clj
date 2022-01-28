@@ -34,9 +34,25 @@
 
 (defroutes app
   (GET "/" [] "<h1>Khala</h1>")
+  ;; (GET "/" [] (fn [req] "Do something with req"))
   (GET "/gettime" [] (get-time))
   (GET "/prompt" req (prompt req))
+  (GET "/hello/:name" [name] (str "Hello " name))
+  ;; You can adjust what each parameter matches by supplying a regex:
+  (GET ["/file/:name.:ext" :name #".*", :ext #".*"] [name ext]
+       (str "File: " name ext))
   (route/not-found "<h1>Khala service not found</h1>"))
+
+;; (app {:uri "/" :request-method :post})
+
+;; (defroutes app
+;;   (GET "/" [] "Show something")
+;;   (POST "/" [] "Create something")
+;;   (PUT "/" [] "Replace something")
+;;   (PATCH "/" [] "Modify Something")
+;;   (DELETE "/" [] "Annihilate something")
+;;   (OPTIONS "/" [] "Appease something")
+;;   (HEAD "/" [] "Preview something"))
 
 (defn -main [& args]
   (let [port (Integer/parseInt (or (System/getenv "PORT") "9837"))] ;(5) 
