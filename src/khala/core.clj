@@ -64,14 +64,16 @@
   ;; (GET "/" [] (fn [req] "Do something with req"))
   ;; curl -d "fun=pf-tweet-sentiment%2F1&args=%5B%22I%20love%20chocolate%22%5D" -X POST http://127.0.0.1:9837/prompt -H "Content-Type: application/x-www-form-urlencoded"
   ;; curl -d "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}" -X POST http://127.0.0.1:9837/prompt -H "Content-Type: application/json"
-  (POST "/prompt" [fun,args]
+  (POST "/prompt" req
         (let [fun (get (:params req) :fun)
               ;; json
               args (get (:params req) :args)]
-          (c/parse-string
-           (apply
-            penf (conj (c/parse-string args true) fun))
-           true)))
+          (sh "tv" :stdin (str req))
+          ;; (c/parse-string
+          ;;  (apply
+          ;;   penf (conj (c/parse-string args true) fun))
+          ;;  true)
+          ))
   ;; Use urlencode
   ;; curl "http://127.0.0.1:9837/post/prompt/pf-tweet-sentiment%2F1/%5B%22I%20love%20chocolate%22%5D"
   (GET "/prompt/:fun/:args" [fun,args]
