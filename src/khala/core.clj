@@ -81,6 +81,9 @@
           ;;   penf (conj (c/parse-string args true) fun))
           ;;  true)
           ))
+
+  ;; The maximum length of a URL in the address bar is 2048 characters.
+
   ;; Use urlencode
   ;; curl "http://127.0.0.1:9837/post/prompt/pf-tweet-sentiment%2F1/%5B%22I%20love%20chocolate%22%5D"
   (GET "/prompt/:fun/:args" [fun,args]
