@@ -52,22 +52,35 @@
             ~@args)
         :out)))
 
+(comment
+ (let [args '("pf-tweet-sentiment/1" "I love pizza")]
+   (eval
+    `(penf fun ~@(c/parse-string args true))))
+
+ (let [fun "pf-tweet-sentiment/1"
+       args "[\"I love pizza\"]"]
+   (c/parse-string
+    (apply
+     penf (conj (c/parse-string args true) fun))
+    true)))
+
+
 (defroutes app
   (GET "/" [] "<h1>Khala</h1>")
   ;; (GET "/" [] (fn [req] "Do something with req"))
   (POST "/post/prompt" req
-        (let [fun (get (:params req) :fun)
-              ;; json
-              args (get (:params req) :args)]
-          ;; (str "Title: " title ", Author: " author)
-          (eval
-           `(penf fun ~@args))))
+    (let [fun "pf-tweet-sentiment/1"
+          args "[\"I love pizza\"]"]
+      (c/parse-string
+       (apply
+        penf (conj (c/parse-string args true) fun))
+       true)))
   (GET "/gettime" [] (get-time))
   (GET "/get/prompt" req (prompt req))
   (GET "/hello/:name" [name] (str "Hello " name))
   ;; You can adjust what each parameter matches by supplying a regex:
   (GET ["/file/:name.:ext" :name #".*", :ext #".*"] [name ext]
-       (str "File: " name ext))
+    (str "File: " name ext))
   (route/not-found "<h1>Khala service not found</h1>"))
 
 ;; (app {:uri "/" :request-method :post})
