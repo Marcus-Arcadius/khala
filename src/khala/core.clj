@@ -33,11 +33,6 @@
 ;;   (POST "/login" request (printPostBody request))
 ;;   (route/not-found {:status 404 :body "<h1>Page not found</h1"}))
 
-(defn prompt
-  ""
-  [fun]
-  )
-
 (defn penf [& args]
   ;; This is how to run a macro at runtime
   (eval
