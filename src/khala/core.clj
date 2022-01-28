@@ -74,7 +74,7 @@
   ;; /usr/bin/curl --header "Content-Type: application/json" --request POST --data-binary '{"fun":"xyz","args":"xyz"}' http://127.0.0.1:800/prompt
 
   ;; For some reason req is not collecting the HTTP body
-  (ANY "/prompt"
+  (ANY "/prompt" []
        (fn []
          (let [fun (get (:params req) :fun)
                ;; json
