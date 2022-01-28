@@ -104,7 +104,7 @@
   ;;          ;;  true)
   ;;          ))
   ;;      )
-  (ANY "/prompt" req
+  (POST "/prompt" req
        ;; (sh "tv" :stdin (str body))
        (let [fun (get (:params req) :fun)
              ;; json
