@@ -91,18 +91,30 @@
   ;;      ;;     ;;  true)
   ;;      ;;     ))
   ;;      )
-  (ANY "/prompt" []
+  ;; (ANY "/prompt" []
+  ;;      ;; (sh "tv" :stdin (str body))
+  ;;      (fn [req]
+  ;;        (let [fun (get (:params req) :fun)
+  ;;              ;; json
+  ;;              args (get (:params req) :args)]
+  ;;          (sh "tv" :stdin (str req))
+  ;;          ;; (c/parse-string
+  ;;          ;;  (apply
+  ;;          ;;   penf (conj (c/parse-string args true) fun))
+  ;;          ;;  true)
+  ;;          ))
+  ;;      )
+  (ANY "/prompt" req
        ;; (sh "tv" :stdin (str body))
-       (fn [req]
-         (let [fun (get (:params req) :fun)
-               ;; json
-               args (get (:params req) :args)]
-           (sh "tv" :stdin (str req))
-           ;; (c/parse-string
-           ;;  (apply
-           ;;   penf (conj (c/parse-string args true) fun))
-           ;;  true)
-           ))
+       (let [fun (get (:params req) :fun)
+             ;; json
+             args (get (:params req) :args)]
+         (sh "tv" :stdin (str req))
+         ;; (c/parse-string
+         ;;  (apply
+         ;;   penf (conj (c/parse-string args true) fun))
+         ;;  true)
+         )
        )
 
   ;; The maximum length of a URL in the address bar is 2048 characters.
