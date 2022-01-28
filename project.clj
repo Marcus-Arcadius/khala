@@ -15,7 +15,7 @@
                  ;; Use this as the http client
                  ;; [http.async.client "1.3.1"]
                  [ring "2.0.0-alpha1"]
-                 ]
+                 [ring/ring-json "0.5.1"]]
   :main ^:skip-aot khala.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
