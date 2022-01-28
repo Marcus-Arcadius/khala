@@ -62,9 +62,9 @@
 (defroutes app
   (GET "/" [] "<h1>Khala</h1>")
   ;; (GET "/" [] (fn [req] "Do something with req"))
-  ;; curl -X POST http://127.0.0.1:9837/prompt -H "Content-Type: application/x-www-form-urlencoded" -d "fun=pf-tweet-sentiment%2F1&args=%5B%22I%20love%20chocolate%22%5D"
-  ;; curl -X POST http://127.0.0.1:9837/prompt -H "Content-Type: application/json" -d "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}"
-  (POST "/prompt" req
+  ;; curl -d "fun=pf-tweet-sentiment%2F1&args=%5B%22I%20love%20chocolate%22%5D" -X POST http://127.0.0.1:9837/prompt -H "Content-Type: application/x-www-form-urlencoded"
+  ;; curl -d "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}" -X POST http://127.0.0.1:9837/prompt -H "Content-Type: application/json"
+  (POST "/prompt" [fun,args]
         (let [fun (get (:params req) :fun)
               ;; json
               args (get (:params req) :args)]
