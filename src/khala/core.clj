@@ -112,7 +112,7 @@
 ;;   (OPTIONS "/" [] "Appease something")
 ;;   (HEAD "/" [] "Preview something"))
 
-(defn make-request []
+(defn test-make-request []
   (->
    (http/post "http://127.0.0.1:9837/prompt"
               {:body (json/write-str {:fun "Hello" :args "world"})
