@@ -64,24 +64,26 @@
   (GET "/" [] "<h1>Khala</h1>")
   ;; (GET "/" [] (fn [req] "Do something with req"))
   (POST "/post/prompt" req
-    (let [fun (get (:params req) :fun)
-          ;; json
-          args (get (:params req) :args)]
-      (c/parse-string
-       (apply
-        penf (conj (c/parse-string args true) fun))
-       true)))
+        (let [fun (get (:params req) :fun)
+              ;; json
+              args (get (:params req) :args)]
+          (c/parse-string
+           (apply
+            penf (conj (c/parse-string args true) fun))
+           true)))
+  ;; Use urlencode
+  ;; curl "http://127.0.0.1:9837/post/prompt/pf-tweet-sentiment%2F1/%5B%22I%20love%20chocolate%22%5D"
   (GET "/post/prompt/:fun/:args" [fun,args]
-    (c/parse-string
-     (apply
-      penf (conj (c/parse-string args true) fun))
-     true))
+       (c/parse-string
+        (apply
+         penf (conj (c/parse-string args true) fun))
+        true))
   ;; (GET "/gettime" [] (get-time))
   ;; (GET "/get/prompt" req (prompt req))
   (GET "/hello/:name" [name] (str "Hello " name))
   ;; You can adjust what each parameter matches by supplying a regex:
   (GET ["/file/:name.:ext" :name #".*", :ext #".*"] [name ext]
-    (str "File: " name ext))
+       (str "File: " name ext))
   (route/not-found "<h1>Khala service not found</h1>"))
 
 ;; (app {:uri "/" :request-method :post})
