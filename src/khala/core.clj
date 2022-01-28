@@ -74,16 +74,17 @@
   ;; /usr/bin/curl --header "Content-Type: application/json" --request POST --data-binary '{"fun":"xyz","args":"xyz"}' http://127.0.0.1:800/prompt
 
   ;; For some reason req is not collecting the HTTP body
-  (POST "/prompt" req
-        (let [fun (get (:params req) :fun)
-              ;; json
-              args (get (:params req) :args)]
-          (sh "tv" :stdin (str req))
-          ;; (c/parse-string
-          ;;  (apply
-          ;;   penf (conj (c/parse-string args true) fun))
-          ;;  true)
-          ))
+  (ANY "/prompt"
+       (fn []
+         (let [fun (get (:params req) :fun)
+               ;; json
+               args (get (:params req) :args)]
+           (sh "tv" :stdin (str req))
+           ;; (c/parse-string
+           ;;  (apply
+           ;;   penf (conj (c/parse-string args true) fun))
+           ;;  true)
+           )))
 
   ;; The maximum length of a URL in the address bar is 2048 characters.
 
