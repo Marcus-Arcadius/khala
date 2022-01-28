@@ -2,9 +2,11 @@
   (:require [org.httpkit.server :refer [run-server] :as server]
             [clj-time.core :as t]
             [cheshire.core :as c]
+            [clj-http.client :as http]
             [compojure.core :refer :all]
             [compojure.route :as route]
-            [clojure.core.async :as a])
+            [clojure.core.async :as a]
+            [clojure.data.json :as json])
   (:gen-class))
 
 (use '[clojure.java.shell :only [sh]])
@@ -109,6 +111,15 @@
 ;;   (DELETE "/" [] "Annihilate something")
 ;;   (OPTIONS "/" [] "Appease something")
 ;;   (HEAD "/" [] "Preview something"))
+
+(defn make-request []
+  (->
+   (http/post "http://127.0.0.1:9837/prompt"
+              {:body (json/write-str {:fun "Hello" :args "world"})
+               :accept :json
+               :throw-entire-message? true})
+   :body
+   (json/read-str :key-fn keyword)))
 
 (defn -main [& args]
   (let [port (Integer/parseInt (or (System/getenv "PORT") "9837"))] ;(5)
