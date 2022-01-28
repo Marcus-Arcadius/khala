@@ -114,12 +114,17 @@
 
 (defn test-make-request []
   (->
-   (http/post "http://127.0.0.1:9837/prompt"
-              {:body (json/write-str {:fun "Hello" :args "world"})
-               :accept :json
-               :throw-entire-message? true})
-   :body
-   (json/read-str :key-fn keyword)))
+   (http/post
+    "http://127.0.0.1:9837/prompt"
+    ;; "http://127.0.0.1:800/prompt"
+    {:body (json/write-str {:fun "Hello" :args "world"})
+     :accept :json
+     :headers {"Content-Type" "application/json; charset=utf-8"}
+     ;; :form-params {"q" "foo, bar"}
+     :throw-entire-message? true})
+   ;; :body
+   ;; (json/read-str :key-fn keyword)
+   ))
 
 (defn -main [& args]
   (let [port (Integer/parseInt (or (System/getenv "PORT") "9837"))] ;(5)
