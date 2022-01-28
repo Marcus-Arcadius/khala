@@ -91,7 +91,7 @@
   ;;      ;;     ;;  true)
   ;;      ;;     ))
   ;;      )
-  (ANY "/prompt" req
+  (ANY "/prompt" []
        ;; (sh "tv" :stdin (str body))
        (fn [req]
          (let [fun (get (:params req) :fun)
