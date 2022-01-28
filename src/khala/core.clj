@@ -75,7 +75,7 @@
 
   ;; For some reason req is not collecting the HTTP body
   (ANY "/prompt" []
-       (fn []
+       (fn [req]
          (let [fun (get (:params req) :fun)
                ;; json
                args (get (:params req) :args)]
