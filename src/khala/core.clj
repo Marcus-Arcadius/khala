@@ -18,10 +18,10 @@
                  (sh "q" :in (str s))
                  :out)) args)))
 
-(defn app [req]
-  {:status  200
-   :headers {"Content-Type" "text/html"}
-   :body    (str (t/time-now))})
+;; (defn app [req]
+;;   {:status  200
+;;    :headers {"Content-Type" "text/html"}
+;;    :body    (str (t/time-now))})
 
 (defn printPostBody [request]
   {:status 200
