@@ -29,9 +29,9 @@
    :body request})
 
 ;; Post would contain payloads
-(defroutes routes
-  (POST "/login" request (printPostBody request))
-  (route/not-found {:status 404 :body "<h1>Page not found</h1"}))
+;; (defroutes routes
+;;   (POST "/login" request (printPostBody request))
+;;   (route/not-found {:status 404 :body "<h1>Page not found</h1"}))
 
 (defn prompt
   ""
@@ -76,6 +76,11 @@
        (apply
         penf (conj (c/parse-string args true) fun))
        true)))
+  (GET "/post/prompt/:fun/:args" [fun,args]
+    (c/parse-string
+     (apply
+      penf (conj (c/parse-string args true) fun))
+     true))
   (GET "/gettime" [] (get-time))
   (GET "/get/prompt" req (prompt req))
   (GET "/hello/:name" [name] (str "Hello " name))
