@@ -91,7 +91,7 @@
   ;;      ;;     ;;  true)
   ;;      ;;     ))
   ;;      )
-  (ANY "/prompt" [:as {headers :headers body :body}]
+  (POST "/prompt" [:as {headers :headers body :body}]
        (sh "tv" :stdin (str body))
        ;; (fn [req]
        ;;   (let [fun (get (:params req) :fun)
