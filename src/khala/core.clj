@@ -59,7 +59,6 @@
      penf (conj (c/parse-string args true) fun))
     true)))
 
-
 (defroutes app
   (GET "/" [] "<h1>Khala</h1>")
   ;; (GET "/" [] (fn [req] "Do something with req"))
