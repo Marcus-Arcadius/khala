@@ -1,6 +1,7 @@
 (ns khala.core
   (:require [org.httpkit.server :refer [run-server]]
             [clj-time.core :as t]
+            [cheshire.core :as c]
             [compojure.core :refer :all]
             [compojure.route :as route]
             [clojure.core.async :as a])
@@ -32,11 +33,37 @@
   (POST "/login" request (printPostBody request))
   (route/not-found {:status 404 :body "<h1>Page not found</h1"}))
 
+(defn prompt
+  ""
+  [fun]
+  )
+
+(defn penf [& args]
+  ;; This is how to run a macro at runtime
+  (eval
+   `(-> (sh "unbuffer" "penf" "-u" "-nto" "--pool" "-j"
+            ~@args)
+        :out)))
+
+(defn pena [& args]
+  ;; This is how to run a macro at runtime
+  (eval
+   `(-> (sh "unbuffer" "pena" "-u" "-nto" "--pool" "-j"
+            ~@args)
+        :out)))
+
 (defroutes app
   (GET "/" [] "<h1>Khala</h1>")
   ;; (GET "/" [] (fn [req] "Do something with req"))
+  (POST "/post/prompt" req
+        (let [fun (get (:params req) :fun)
+              ;; json
+              args (get (:params req) :args)]
+          ;; (str "Title: " title ", Author: " author)
+          (eval
+           `(penf fun ~@args))))
   (GET "/gettime" [] (get-time))
-  (GET "/prompt" req (prompt req))
+  (GET "/get/prompt" req (prompt req))
   (GET "/hello/:name" [name] (str "Hello " name))
   ;; You can adjust what each parameter matches by supplying a regex:
   (GET ["/file/:name.:ext" :name #".*", :ext #".*"] [name ext]
