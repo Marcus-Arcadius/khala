@@ -55,7 +55,7 @@
 ;;   (HEAD "/" [] "Preview something"))
 
 (defn -main [& args]
-  (let [port (Integer/parseInt (or (System/getenv "PORT") "9837"))] ;(5) 
+  (let [port (Integer/parseInt (or (System/getenv "PORT") "9837"))] ;(5)
     (server/run-server app {:port port})
     (println (str "Running Khala at http:/127.0.0.1:" port "/")))
 
