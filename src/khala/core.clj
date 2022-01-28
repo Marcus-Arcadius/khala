@@ -62,7 +62,7 @@
 (defroutes app
   (GET "/" [] "<h1>Khala</h1>")
   ;; (GET "/" [] (fn [req] "Do something with req"))
-  (POST "/post/prompt" req
+  (POST "/prompt" req
         (let [fun (get (:params req) :fun)
               ;; json
               args (get (:params req) :args)]
@@ -72,7 +72,7 @@
            true)))
   ;; Use urlencode
   ;; curl "http://127.0.0.1:9837/post/prompt/pf-tweet-sentiment%2F1/%5B%22I%20love%20chocolate%22%5D"
-  (GET "/post/prompt/:fun/:args" [fun,args]
+  (GET "/prompt/:fun/:args" [fun,args]
        (c/parse-string
         (apply
          penf (conj (c/parse-string args true) fun))
