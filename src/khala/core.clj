@@ -1,5 +1,5 @@
 (ns khala.core
-  (:require [org.httpkit.server :refer [run-server]]
+  (:require [org.httpkit.server :refer [run-server] :as server]
             [clj-time.core :as t]
             [cheshire.core :as c]
             [compojure.core :refer :all]
