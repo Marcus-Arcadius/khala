@@ -69,8 +69,9 @@
   (GET "/" [] "<h1>Khala</h1>")
   ;; (GET "/" [] (fn [req] "Do something with req"))
   (POST "/post/prompt" req
-    (let [fun "pf-tweet-sentiment/1"
-          args "[\"I love pizza\"]"]
+    (let [fun (get (:params req) :fun)
+          ;; json
+          args (get (:params req) :args)]
       (c/parse-string
        (apply
         penf (conj (c/parse-string args true) fun))
