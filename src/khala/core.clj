@@ -76,7 +76,7 @@
      (apply
       penf (conj (c/parse-string args true) fun))
      true))
-  (GET "/gettime" [] (get-time))
+  ;; (GET "/gettime" [] (get-time))
   (GET "/get/prompt" req (prompt req))
   (GET "/hello/:name" [name] (str "Hello " name))
   ;; You can adjust what each parameter matches by supplying a regex:
