@@ -65,6 +65,7 @@
 ;; https://www.baeldung.com/clojure-ring
 ;; (app {:uri "/prompt" :request-method :post :headers {"Content-Type" "application/json"} :body "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}"})
 ;; (app {:uri "/prompt" :request-method :post :headers {"content-type" "application/json" "content-length" "59"} :body "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}"})
+;; https://github.com/http-kit/http-kit/blob/master/test/org/httpkit/client_test.clj
 (defroutes app
   (GET "/" [] "<h1>Khala</h1>")
   ;; (GET "/" [] (fn [req] "Do something with req"))
