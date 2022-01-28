@@ -4,10 +4,13 @@
             [cheshire.core :as c]
             [clj-http.client :as http]
             [compojure.core :refer :all]
-            [compojure.route :as route]
             [clojure.core.async :as a]
             ;; For test-make-request
-            [clojure.data.json :as json])
+            [clojure.data.json :as json]
+            [compojure.handler :as handler]
+            [ring.middleware.json :as middleware]
+            [clojure.java.jdbc :as sql]
+            [compojure.route :as route])
   (:gen-class))
 
 (use '[clojure.java.shell :only [sh]])

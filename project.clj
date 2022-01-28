@@ -8,7 +8,14 @@
                  [cheshire "5.10.2"]
                  [org.clojure/core.async "1.5.648"]
                  [compojure "1.6.2"]
-                 [http-kit "2.5.0-SNAPSHOT"]]
+                 ;; Ditch http-kit
+                 [http-kit "2.5.0-SNAPSHOT"]
+                 [clj-http "3.12.3"]
+                 [clojure-data "0.1.4"]
+                 ;; Use this as the http client
+                 ;; [http.async.client "1.3.1"]
+                 [ring "2.0.0-alpha1"]
+                 ]
   :main ^:skip-aot khala.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
