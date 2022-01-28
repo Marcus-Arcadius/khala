@@ -9,7 +9,7 @@
             [clojure.data.json :as json]
             [compojure.handler :as handler]
             [ring.middleware.json :as middleware]
-            [clojure.java.jdbc :as sql]
+            ;; [clojure.java.jdbc :as sql]
             [compojure.route :as route])
   (:gen-class))
 
@@ -69,7 +69,7 @@
 ;; (app {:uri "/prompt" :request-method :post :headers {"Content-Type" "application/json"} :body "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}"})
 ;; (app {:uri "/prompt" :request-method :post :headers {"content-type" "application/json" "content-length" "59"} :body "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}"})
 ;; https://github.com/http-kit/http-kit/blob/master/test/org/httpkit/client_test.clj
-(defroutes app
+(defroutes app-routes
   (GET "/" [] "<h1>Khala</h1>")
   ;; (GET "/" [] (fn [req] "Do something with req"))
 
@@ -78,18 +78,31 @@
   ;; /usr/bin/curl --header "Content-Type: application/json" --request POST --data-binary '{"fun":"xyz","args":"xyz"}' http://127.0.0.1:800/prompt
 
   ;; For some reason req is not collecting the HTTP body
-  (ANY "/prompt" {body :body}
-       (sh "tv" :stdin (str body))
-       ;; (fn [req]
-       ;;   (let [fun (get (:params req) :fun)
-       ;;         ;; json
-       ;;         args (get (:params req) :args)]
-       ;;     (sh "tv" :stdin (str req))
-       ;;     ;; (c/parse-string
-       ;;     ;;  (apply
-       ;;     ;;   penf (conj (c/parse-string args true) fun))
-       ;;     ;;  true)
-       ;;     ))
+  ;; (ANY "/prompt" {body :body}
+  ;;      (sh "tv" :stdin (str body))
+  ;;      ;; (fn [req]
+  ;;      ;;   (let [fun (get (:params req) :fun)
+  ;;      ;;         ;; json
+  ;;      ;;         args (get (:params req) :args)]
+  ;;      ;;     (sh "tv" :stdin (str req))
+  ;;      ;;     ;; (c/parse-string
+  ;;      ;;     ;;  (apply
+  ;;      ;;     ;;   penf (conj (c/parse-string args true) fun))
+  ;;      ;;     ;;  true)
+  ;;      ;;     ))
+  ;;      )
+  (ANY "/prompt" req
+       ;; (sh "tv" :stdin (str body))
+       (fn [req]
+         (let [fun (get (:params req) :fun)
+               ;; json
+               args (get (:params req) :args)]
+           (sh "tv" :stdin (str req))
+           ;; (c/parse-string
+           ;;  (apply
+           ;;   penf (conj (c/parse-string args true) fun))
+           ;;  true)
+           ))
        )
 
   ;; The maximum length of a URL in the address bar is 2048 characters.
@@ -123,8 +136,8 @@
 (defn test-make-request []
   (->
    (http/post
-    ;; "http://127.0.0.1:9837/prompt"
-    "http://127.0.0.1:800/prompt"
+    "http://127.0.0.1:9837/prompt"
+    ;; "http://127.0.0.1:800/prompt"
     {:body (json/write-str {:fun "xyz" :args "xyz"})
      :accept :json
      :headers {"Content-Type" "application/json; charset=utf-8"}
@@ -133,6 +146,11 @@
    ;; :body
    ;; (json/read-str :key-fn keyword)
    ))
+
+(def app
+  (-> (handler/api app-routes)
+      (middleware/wrap-json-body)
+      (middleware/wrap-json-response)))
 
 (defn -main [& args]
   (let [port (Integer/parseInt (or (System/getenv "PORT") "9837"))] ;(5)
