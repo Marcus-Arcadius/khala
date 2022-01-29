@@ -35,10 +35,13 @@
   (sh "tv" :stdin (str s)))
 
 (defn debug [request]
-  (tv (slurp (:body request)))
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body request})
+  ;; (print (slurp (:body request)))
+  ;; (print (slurp (:body (:body request))))
+  (str
+   ;; {:status 200
+   ;;  :headers {"Content-Type" "text/html"}
+   ;;  :body request}
+   (slurp {:body (request}))))
 
 ;; Post would contain payloads
 ;; (defroutes routes
