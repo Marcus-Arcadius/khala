@@ -91,7 +91,7 @@
 
 (defn prompt [request]
   (let [body (ring.util.request/body-string (:body request))]
-    (sh "tv" :stdin body)
+    (sh "tv" :stdin (handler (assoc request :body (java.io.StringReader. body-str))))
     ;; (let [fun (get (:params req) :fun)
     ;;       ;; json
     ;;       args (get (:params req) :args)]
