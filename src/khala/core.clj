@@ -90,7 +90,10 @@
 ;; https://github.com/http-kit/http-kit/blob/master/test/org/httpkit/client_test.clj
 
 (defn prompt [request]
-  (let [body (ring.util.request/body-string (:body request))]
+  (let [body
+        (:server-name request)
+        ;; (ring.util.request/body-string (:body request))
+        ]
     (sh "tv" :stdin body)
     ;; (let [fun (get (:params req) :fun)
     ;;       ;; json
