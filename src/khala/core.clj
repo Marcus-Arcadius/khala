@@ -186,7 +186,8 @@
     ;; "http://127.0.0.1:800/prompt"
     {:body
      ;; (string-input-stream (json/write-str {:fun "xyz" :args "xyz"}))
-     (string-input-stream (json/write-str {:username "xyz" :password "xyz"}))
+     ;; (string-input-stream (json/write-str {:username "xyz" :password "xyz"}))
+     (json/write-str {:username "xyz" :password "xyz"})
      :accept :json
      :headers {"Content-Type" "application/json; charset=utf-8"}
      ;; :form-params {"q" "foo, bar"}
