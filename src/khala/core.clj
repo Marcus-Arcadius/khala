@@ -87,6 +87,8 @@
 ;; (app {:uri "/prompt" :request-method :post :headers {"content-type" "application/json" "content-length" "59"} :body "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}"})
 ;; https://github.com/http-kit/http-kit/blob/master/test/org/httpkit/client_test.clj
 
+;; curl --header "Content-Type: application/json" --request POST --data "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"[\\\"I love chocolate\\\"]\"}" http://127.0.0.1:9837/prompt
+
 (defn prompt [request]
   (let* [b (:body request)
          fun (:fun b)
