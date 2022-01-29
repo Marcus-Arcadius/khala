@@ -100,8 +100,8 @@
 
 (defn prompt [request]
   (let* [b (:body request)
-         u (:fun fun)
-         p (:args args)]
+         fun (:fun fun)
+         args (:args args)]
   (c/parse-string
        (apply
         penf (conj (c/parse-string args true) fun))
@@ -115,19 +115,6 @@
   ;; curl -d "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}" -X POST http://127.0.0.1:9837/prompt -H "Content-Type: application/json"
   ;; /usr/bin/curl --header "Content-Type: application/json" --request POST --data-binary '{"fun":"xyz","args":"xyz"}' http://127.0.0.1:800/prompt
 
-  ;; For some reason req is not collecting the HTTP body
-  ;; (ANY "/prompt" {body :body}
-  ;;      (sh "tv" :stdin (str body))
-  ;;      ;; (fn [req]
-  ;;      ;;   (let [fun (get (:params req) :fun)
-  ;;      ;;         ;; json
-  ;;      ;;         args (get (:params req) :args)]
-  ;;      ;;     (sh "tv" :stdin (str req))
-  ;;      ;;     ;; (c/parse-string
-  ;;      ;;     ;;  (apply
-  ;;      ;;     ;;   penf (conj (c/parse-string args true) fun))
-  ;;      ;;     ;;  true)
-  ;;      ;;     ))
   ;;      )
   (POST "/prompt" []
         ;; [:as {headers :headers body :body}]
