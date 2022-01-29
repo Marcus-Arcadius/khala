@@ -37,9 +37,9 @@
 (defn debug [request]
   ;; (print (slurp (:body request)))
   ;; (print (slurp (:body (:body request))))
-  (let [b (:body request)
-        u {:username b}
-        p {:username p}]
+  (let* [b (:body request)
+         u (:username b)
+         p (:username b)]
     ;; {:status 200
     ;;  :headers {"Content-Type" "text/html"}
     ;;  :body request}
