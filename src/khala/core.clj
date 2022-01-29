@@ -79,19 +79,8 @@
 (defn login
   [request]
   (let [username (get-in request [:body :username])
-        password (get-in request [:body :password])
-        ;; valid? (some-> authdata
-        ;;                (get (keyword username))
-        ;;                (= password))
-        ]
-    (sh "tv" :stdin (str request))
-    ;; (if valid?
-    ;;   (let [claims {:user (keyword username)
-    ;;                 :exp (time/plus (time/now) (time/seconds 3600))}
-    ;;         token (jwt/encrypt claims secret {:alg :a256kw :enc :a128gcm})]
-    ;;     (ok {:token token}))
-    ;;   (bad-request {:message "wrong auth data"}))
-    ))
+        password (get-in request [:body :password])]
+    (sh "tv" :stdin (str request))))
 
 ;; https://www.baeldung.com/clojure-ring
 ;; (app {:uri "/prompt" :request-method :post :headers {"Content-Type" "application/json"} :body "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}"})
