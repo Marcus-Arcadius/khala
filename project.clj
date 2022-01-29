@@ -16,7 +16,9 @@
                  ;; [http.async.client "1.3.1"]
                  [ring "2.0.0-alpha1"]
                  [ring/ring-json "0.5.1"]
-                 [http-kit "2.3.0"]]
+                 ;; [http-kit "2.3.0"]
+                 ;; [http-kit "2.1.0-SNAPSHOT"]
+                 [http-kit "2.2.0"]]
   :main ^:skip-aot khala.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
