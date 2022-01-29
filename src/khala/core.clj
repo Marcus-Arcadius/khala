@@ -208,8 +208,9 @@
   ;;     (middleware/wrap-json-response))
   (as-> app-routes $
       ;; (middleware/wrap-json-body)
-      (middleware/wrap-json-body $ {:keywords? true :bigdecimals? true})
-      (middleware/wrap-json-response $ {:pretty false})))
+      ;; (middleware/wrap-json-body $ {:keywords? true :bigdecimals? true})
+      ;; (middleware/wrap-json-response $ {:pretty false})
+    ))
 
 (defn -main [& args]
   (let [port (Integer/parseInt (or (System/getenv "PORT") "9837"))] ;(5)
