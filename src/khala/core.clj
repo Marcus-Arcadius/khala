@@ -43,7 +43,7 @@
     ;; {:status 200
     ;;  :headers {"Content-Type" "text/html"}
     ;;  :body request}
-    (tv (java.io.StringReader. u))))
+    (tv u)))
 
 ;; Post would contain payloads
 ;; (defroutes routes
