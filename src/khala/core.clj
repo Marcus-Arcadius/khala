@@ -10,7 +10,9 @@
             [compojure.handler :as handler]
             [ring.middleware.json :as middleware]
             ;; [clojure.java.jdbc :as sql]
-            [compojure.route :as route])
+            [compojure.route :as route]
+
+            [ring.util.io :refer [string-input-stream]])
   (:gen-class))
 
 (use '[clojure.java.shell :only [sh]])
@@ -92,7 +94,7 @@
   ;;      ;;     ))
   ;;      )
   (POST "/prompt" [:as {headers :headers body :body}]
-       (sh "tv" :stdin (str body))
+       (sh "tv" :stdin (str headers))
        ;; (fn [req]
        ;;   (let [fun (get (:params req) :fun)
        ;;         ;; json
@@ -163,7 +165,7 @@
    (http/post
     "http://127.0.0.1:9837/prompt"
     ;; "http://127.0.0.1:800/prompt"
-    {:body (json/write-str {:fun "xyz" :args "xyz"})
+    {:body (string-input-stream (json/write-str {:fun "xyz" :args "xyz"}))
      :accept :json
      :headers {"Content-Type" "application/json; charset=utf-8"}
      ;; :form-params {"q" "foo, bar"}
@@ -173,9 +175,15 @@
    ))
 
 (def app
-  (-> (handler/api app-routes)
-      (middleware/wrap-json-body)
-      (middleware/wrap-json-response)))
+  ;; (-> (handler/api app-routes)
+  ;;     ;; (middleware/wrap-json-body)
+  ;;     (middleware/wrap-json-response)
+  ;;     (middleware/wrap-json-body)
+  ;;     (middleware/wrap-json-response))
+  (as-> app-routes $
+      ;; (middleware/wrap-json-body)
+      (middleware/wrap-json-body $ {:keywords? true :bigdecimals? true})
+      (middleware/wrap-json-response $ {:pretty false})))
 
 (defn -main [& args]
   (let [port (Integer/parseInt (or (System/getenv "PORT") "9837"))] ;(5)
