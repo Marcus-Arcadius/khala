@@ -106,7 +106,6 @@
   ;; curl -d "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}" -X POST http://127.0.0.1:9837/prompt -H "Content-Type: application/json"
   ;; /usr/bin/curl --header "Content-Type: application/json" --request POST --data-binary '{"fun":"xyz","args":"xyz"}' http://127.0.0.1:800/prompt
 
-  ;;      )
   (POST "/prompt" []
         ;; [:as {headers :headers body :body}]
         ;; (sh "tv" :stdin (str headers))
@@ -115,31 +114,6 @@
   ;; curl --header "Content-Type: application/json" --request POST --data '{"username":"xyz","password":"xyz"}' http://127.0.0.1:9837/login
   (POST "/login" [] login)
   (POST "/debug" [] debug)
-  ;; (ANY "/prompt" []
-  ;;      ;; (sh "tv" :stdin (str body))
-  ;;      (fn [req]
-  ;;        (let [fun (get (:params req) :fun)
-  ;;              ;; json
-  ;;              args (get (:params req) :args)]
-  ;;          (sh "tv" :stdin (str req))
-  ;;          ;; (c/parse-string
-  ;;          ;;  (apply
-  ;;          ;;   penf (conj (c/parse-string args true) fun))
-  ;;          ;;  true)
-  ;;          ))
-  ;;      )
-  ;; (POST "/prompt" req
-  ;;      ;; (sh "tv" :stdin (str body))
-  ;;      (let [fun (get (:params req) :fun)
-  ;;            ;; json
-  ;;            args (get (:params req) :args)]
-  ;;        (sh "tv" :stdin (str req))
-  ;;        ;; (c/parse-string
-  ;;        ;;  (apply
-  ;;        ;;   penf (conj (c/parse-string args true) fun))
-  ;;        ;;  true)
-  ;;        )
-  ;;      )
 
   ;; The maximum length of a URL in the address bar is 2048 characters.
 
