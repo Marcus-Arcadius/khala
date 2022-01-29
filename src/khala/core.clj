@@ -88,6 +88,22 @@
 ;; (app {:uri "/prompt" :request-method :post :headers {"Content-Type" "application/json"} :body "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}"})
 ;; (app {:uri "/prompt" :request-method :post :headers {"content-type" "application/json" "content-length" "59"} :body "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}"})
 ;; https://github.com/http-kit/http-kit/blob/master/test/org/httpkit/client_test.clj
+
+(defn prompt [request]
+  (sh "tv" :stdin (str request))
+  ;; (let [fun (get (:params req) :fun)
+  ;;       ;; json
+  ;;       args (get (:params req) :args)]
+  ;;   (sh "tv" :stdin (str req))
+  ;;   ;; (c/parse-string
+  ;;   ;;  (apply
+  ;;   ;;   penf (conj (c/parse-string args true) fun))
+  ;;   ;;  true)
+  ;;   )
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body request})
+
 (defroutes app-routes
   (GET "/" [] "<h1>Khala</h1>")
   ;; (GET "/" [] (fn [req] "Do something with req"))
@@ -110,8 +126,10 @@
   ;;      ;;     ;;  true)
   ;;      ;;     ))
   ;;      )
-  (POST "/prompt" [:as {headers :headers body :body}]
-        (sh "tv" :stdin (str headers))
+  (POST "/prompt" []
+        ;; [:as {headers :headers body :body}]
+        ;; (sh "tv" :stdin (str headers))
+        prompt
         ;; (fn [req]
         ;;   (let [fun (get (:params req) :fun)
         ;;         ;; json
