@@ -67,6 +67,23 @@
      penf (conj (c/parse-string args true) fun))
     true)))
 
+(defn login
+  [request]
+  (let [username (get-in request [:body :username])
+        password (get-in request [:body :password])
+        ;; valid? (some-> authdata
+        ;;                (get (keyword username))
+        ;;                (= password))
+        ]
+    (sh "tv" :stdin (str username))
+    ;; (if valid?
+    ;;   (let [claims {:user (keyword username)
+    ;;                 :exp (time/plus (time/now) (time/seconds 3600))}
+    ;;         token (jwt/encrypt claims secret {:alg :a256kw :enc :a128gcm})]
+    ;;     (ok {:token token}))
+    ;;   (bad-request {:message "wrong auth data"}))
+    ))
+
 ;; https://www.baeldung.com/clojure-ring
 ;; (app {:uri "/prompt" :request-method :post :headers {"Content-Type" "application/json"} :body "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}"})
 ;; (app {:uri "/prompt" :request-method :post :headers {"content-type" "application/json" "content-length" "59"} :body "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}"})
@@ -94,18 +111,20 @@
   ;;      ;;     ))
   ;;      )
   (POST "/prompt" [:as {headers :headers body :body}]
-       (sh "tv" :stdin (str headers))
-       ;; (fn [req]
-       ;;   (let [fun (get (:params req) :fun)
-       ;;         ;; json
-       ;;         args (get (:params req) :args)]
-       ;;     (sh "tv" :stdin (str req))
-       ;;     ;; (c/parse-string
-       ;;     ;;  (apply
-       ;;     ;;   penf (conj (c/parse-string args true) fun))
-       ;;     ;;  true)
-       ;;     ))
-       )
+        (sh "tv" :stdin (str headers))
+        ;; (fn [req]
+        ;;   (let [fun (get (:params req) :fun)
+        ;;         ;; json
+        ;;         args (get (:params req) :args)]
+        ;;     (sh "tv" :stdin (str req))
+        ;;     ;; (c/parse-string
+        ;;     ;;  (apply
+        ;;     ;;   penf (conj (c/parse-string args true) fun))
+        ;;     ;;  true)
+        ;;     ))
+        )
+  ;; curl --header "Content-Type: application/json" --request POST --data '{"username":"xyz","password":"xyz"}' http://127.0.0.1:9837/login
+  (POST "/login" [] login)
   ;; (ANY "/prompt" []
   ;;      ;; (sh "tv" :stdin (str body))
   ;;      (fn [req]
