@@ -188,10 +188,13 @@
      ;; (string-input-stream (json/write-str {:fun "xyz" :args "xyz"}))
      ;; (string-input-stream (json/write-str {:username "xyz" :password "xyz"}))
      (json/write-str {:username "xyz" :password "xyz"})
-     :accept :json
-     :headers {"Content-Type" "application/json; charset=utf-8"}
+     ;; :accept :json
+     :headers
+     ;; {"Content-Type" "application/json; charset=utf-8"}
+     {"Content-Type" "application/json"}
      ;; :form-params {"q" "foo, bar"}
-     :throw-entire-message? true})
+     ;; :throw-entire-message? true
+     })
    ;; :body
    ;; (json/read-str :key-fn keyword)
    ))
