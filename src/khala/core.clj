@@ -92,11 +92,10 @@
          fun (:fun b)
          args (:args b)]
     (tv args)
-    ;; (c/parse-string
-    ;;  (apply
-    ;;   penf (conj (c/parse-string args true) fun))
-    ;;  true)
-    ))
+    (c/parse-string
+     (apply
+      penf (conj (c/parse-string args true) fun))
+     true)))
 
 (defroutes app-routes
   (GET "/" [] "<h1>Khala</h1>")
