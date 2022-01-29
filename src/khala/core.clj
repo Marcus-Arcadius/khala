@@ -99,23 +99,13 @@
 ;; https://github.com/http-kit/http-kit/blob/master/test/org/httpkit/client_test.clj
 
 (defn prompt [request]
-  (let [body
-        (:server-name request)
-        ;; (ring.util.request/body-string (:body request))
-        ]
-    (sh "tv" :stdin body)
-    ;; (let [fun (get (:params req) :fun)
-    ;;       ;; json
-    ;;       args (get (:params req) :args)]
-    ;;   (sh "tv" :stdin (str req))
-    ;;   ;; (c/parse-string
-    ;;   ;;  (apply
-    ;;   ;;   penf (conj (c/parse-string args true) fun))
-    ;;   ;;  true)
-    ;;   )
-    {:status 200
-     :headers {"Content-Type" "application/json"}
-     :body request}))
+  (let* [b (:body request)
+         u (:fun fun)
+         p (:args args)]
+  (c/parse-string
+       (apply
+        penf (conj (c/parse-string args true) fun))
+       true))
 
 (defroutes app-routes
   (GET "/" [] "<h1>Khala</h1>")
