@@ -14,13 +14,14 @@
                  [clojure-data "0.1.4"]
                  ;; Use this as the http client
                  ;; [http.async.client "1.3.1"]
-                 [ring "2.0.0-alpha1"]
+                 ;; [ring "2.0.0-alpha1"]
                  [ring/ring-json "0.5.1"]
                  ;; [http-kit "2.3.0"]
                  ;; [http-kit "2.1.0-SNAPSHOT"]
                  ;; [http-kit "2.2.0"]
                  ;; [http-kit "2.4.0"]
-                 [http-kit "2.6.0-alpha1"]]
+                 [http-kit "2.6.0-alpha1"]
+                 [ring "1.6.0-RC3"]]
   :main ^:skip-aot khala.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
