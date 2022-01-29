@@ -32,7 +32,7 @@
 ;;    :body    (str (t/time-now))})
 
 (defn tv [s]
-  (sh "tv" :in s))
+  (sh "tv" :in (str s)))
 
 (defn debug [request]
   ;; (print (slurp (:body request)))
