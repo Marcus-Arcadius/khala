@@ -18,7 +18,9 @@
                  [ring/ring-json "0.5.1"]
                  ;; [http-kit "2.3.0"]
                  ;; [http-kit "2.1.0-SNAPSHOT"]
-                 [http-kit "2.2.0"]]
+                 ;; [http-kit "2.2.0"]
+                 ;; [http-kit "2.4.0"]
+                 [http-kit "2.6.0-alpha1"]]
   :main ^:skip-aot khala.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
