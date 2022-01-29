@@ -31,7 +31,14 @@
 ;;    :headers {"Content-Type" "text/html"}
 ;;    :body    (str (t/time-now))})
 
+(defn tv
+  ""
+  [s]
+  (sh "tv" :stdin (str s)))
+
+
 (defn debug [request]
+  (tv :stdin (slurp (:body request)))
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body request})
