@@ -75,7 +75,7 @@
         ;;                (get (keyword username))
         ;;                (= password))
         ]
-    (sh "tv" :stdin (str username))
+    (sh "tv" :stdin (str request))
     ;; (if valid?
     ;;   (let [claims {:user (keyword username)
     ;;                 :exp (time/plus (time/now) (time/seconds 3600))}
