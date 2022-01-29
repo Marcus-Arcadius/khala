@@ -102,10 +102,10 @@
   (let* [b (:body request)
          fun (:fun fun)
          args (:args args)]
-  (c/parse-string
-       (apply
-        penf (conj (c/parse-string args true) fun))
-       true)))
+    (c/parse-string
+     (apply
+      penf (conj (c/parse-string args true) fun))
+     true)))
 
 (defroutes app-routes
   (GET "/" [] "<h1>Khala</h1>")
@@ -120,16 +120,6 @@
         ;; [:as {headers :headers body :body}]
         ;; (sh "tv" :stdin (str headers))
         prompt
-        ;; (fn [req]
-        ;;   (let [fun (get (:params req) :fun)
-        ;;         ;; json
-        ;;         args (get (:params req) :args)]
-        ;;     (sh "tv" :stdin (str req))
-        ;;     ;; (c/parse-string
-        ;;     ;;  (apply
-        ;;     ;;   penf (conj (c/parse-string args true) fun))
-        ;;     ;;  true)
-        ;;     ))
         )
   ;; curl --header "Content-Type: application/json" --request POST --data '{"username":"xyz","password":"xyz"}' http://127.0.0.1:9837/login
   (POST "/login" [] login)
