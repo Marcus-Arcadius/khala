@@ -105,7 +105,7 @@
   (c/parse-string
        (apply
         penf (conj (c/parse-string args true) fun))
-       true))
+       true)))
 
 (defroutes app-routes
   (GET "/" [] "<h1>Khala</h1>")
