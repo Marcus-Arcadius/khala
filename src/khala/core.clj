@@ -89,8 +89,8 @@
 
 (defn prompt [request]
   (let* [b (:body request)
-         fun (:fun fun)
-         args (:args args)]
+         fun (:fun b)
+         args (:args b)]
     (c/parse-string
      (apply
       penf (conj (c/parse-string args true) fun))
