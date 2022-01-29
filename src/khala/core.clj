@@ -173,8 +173,8 @@
    ))
 
 (def app
-  (-> (handler/api app-routes)
-      (middleware/wrap-json-body)
+  (-> (middleware/wrap-json-body)
+      (handler/api app-routes)
       (middleware/wrap-json-response)))
 
 (defn -main [& args]
