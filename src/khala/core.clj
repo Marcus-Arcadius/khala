@@ -91,7 +91,7 @@
 
 (defn prompt [request]
   (let [body (ring.util.request/body-string (:body request))]
-    (sh "tv" :stdin (handler (assoc request :body (java.io.StringReader. body-str))))
+    (sh "tv" :stdin body)
     ;; (let [fun (get (:params req) :fun)
     ;;       ;; json
     ;;       args (get (:params req) :args)]
@@ -127,7 +127,7 @@
   ;;      ;;     ;;  true)
   ;;      ;;     ))
   ;;      )
-  (POST "/prompt" {}
+  (POST "/prompt" []
         ;; [:as {headers :headers body :body}]
         ;; (sh "tv" :stdin (str headers))
         prompt
