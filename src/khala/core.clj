@@ -37,11 +37,11 @@
 (defn debug [request]
   ;; (print (slurp (:body request)))
   ;; (print (slurp (:body (:body request))))
-  (str
-   ;; {:status 200
-   ;;  :headers {"Content-Type" "text/html"}
-   ;;  :body request}
-   (:username (:body request))))
+  (let [u (:username (:body request))]
+    ;; {:status 200
+    ;;  :headers {"Content-Type" "text/html"}
+    ;;  :body request}
+    (tv u)))
 
 ;; Post would contain payloads
 ;; (defroutes routes
