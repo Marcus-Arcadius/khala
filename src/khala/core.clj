@@ -41,7 +41,7 @@
    ;; {:status 200
    ;;  :headers {"Content-Type" "text/html"}
    ;;  :body request}
-   (:body (request))))
+   (:body request)))
 
 ;; Post would contain payloads
 ;; (defroutes routes
