@@ -34,7 +34,6 @@
 (defn tv [s]
   (sh "tv" :stdin (str s)))
 
-
 (defn debug [request]
   (tv (slurp (:body request)))
   {:status 200
