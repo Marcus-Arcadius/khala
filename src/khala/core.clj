@@ -90,19 +90,20 @@
 ;; https://github.com/http-kit/http-kit/blob/master/test/org/httpkit/client_test.clj
 
 (defn prompt [request]
-  (sh "tv" :stdin (str request))
-  ;; (let [fun (get (:params req) :fun)
-  ;;       ;; json
-  ;;       args (get (:params req) :args)]
-  ;;   (sh "tv" :stdin (str req))
-  ;;   ;; (c/parse-string
-  ;;   ;;  (apply
-  ;;   ;;   penf (conj (c/parse-string args true) fun))
-  ;;   ;;  true)
-  ;;   )
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body request})
+  (let [body (ring.util.request/body-string (:body request))]
+    (sh "tv" :stdin body)
+    ;; (let [fun (get (:params req) :fun)
+    ;;       ;; json
+    ;;       args (get (:params req) :args)]
+    ;;   (sh "tv" :stdin (str req))
+    ;;   ;; (c/parse-string
+    ;;   ;;  (apply
+    ;;   ;;   penf (conj (c/parse-string args true) fun))
+    ;;   ;;  true)
+    ;;   )
+    {:status 200
+     :headers {"Content-Type" "application/json"}
+     :body request}))
 
 (defroutes app-routes
   (GET "/" [] "<h1>Khala</h1>")
@@ -126,7 +127,7 @@
   ;;      ;;     ;;  true)
   ;;      ;;     ))
   ;;      )
-  (POST "/prompt" []
+  (POST "/prompt" {}
         ;; [:as {headers :headers body :body}]
         ;; (sh "tv" :stdin (str headers))
         prompt
@@ -226,7 +227,7 @@
   ;;     (middleware/wrap-json-response))
   (as-> app-routes $
       ;; (middleware/wrap-json-body)
-      ;; (middleware/wrap-json-body $ {:keywords? true :bigdecimals? true})
+      (middleware/wrap-json-body $ {:keywords? true :bigdecimals? true})
       ;; (middleware/wrap-json-response $ {:pretty false})
     ))
 
