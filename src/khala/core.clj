@@ -31,7 +31,7 @@
 ;;    :headers {"Content-Type" "text/html"}
 ;;    :body    (str (t/time-now))})
 
-(defn printPostBody [request]
+(defn debug [request]
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body request})
@@ -125,6 +125,7 @@
         )
   ;; curl --header "Content-Type: application/json" --request POST --data '{"username":"xyz","password":"xyz"}' http://127.0.0.1:9837/login
   (POST "/login" [] login)
+  (POST "/debug" [] debug)
   ;; (ANY "/prompt" []
   ;;      ;; (sh "tv" :stdin (str body))
   ;;      (fn [req]
