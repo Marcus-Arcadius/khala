@@ -91,10 +91,12 @@
   (let* [b (:body request)
          fun (:fun b)
          args (:args b)]
-    (c/parse-string
-     (apply
-      penf (conj (c/parse-string args true) fun))
-     true)))
+    (tv args)
+    ;; (c/parse-string
+    ;;  (apply
+    ;;   penf (conj (c/parse-string args true) fun))
+    ;;  true)
+    ))
 
 (defroutes app-routes
   (GET "/" [] "<h1>Khala</h1>")
