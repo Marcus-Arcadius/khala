@@ -16,7 +16,7 @@
   (:gen-class))
 
 (use '[clojure.java.shell :only [sh]])
-(use '[clojure.string :only (join split upper-case replace) :as str])
+(use '[clojure.string :only (join split upper-case) :as str])
 
 (defn cmd
   ""
@@ -111,6 +111,9 @@
                 "=" (cmd value)))
              (seq args))))
 
+(defn debug-lm-complete []
+  (sh "pen-test-proxy-lm-complete"))
+
 (defn pen-sh [command & envs]
   ;; This is how to run a macro at runtime
   ;; (eval
@@ -129,11 +132,14 @@
 ;; Rather a singular json containing all results, which are reconstructed as directories
 (defn lm-complete [request]
   (let* [b (:body request)]
-    (c/parse-string
-     (apply
+    (apply
       ;; The envs come in as json keys
       pen-sh (conj b "lm-complete"))
-     true)
+    ;; (c/parse-string
+    ;;  (apply
+    ;;   ;; The envs come in as json keys
+    ;;   pen-sh (conj b "lm-complete"))
+    ;;  true)
     ;; (tv b)
     ;; (c/parse-string
     ;;  (apply
