@@ -120,6 +120,9 @@
                   "pen" "sh" command)))
         :out)))
 
+;; The proxy system must be able to send back all results,
+;; Not in the format of a list of directories.
+;; Rather a singular json containing all results, which are reconstructed as directories
 (defn lm-complete [request]
   (let* [b (:body request)
          envs (:args b)]
