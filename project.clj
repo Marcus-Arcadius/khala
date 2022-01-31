@@ -6,6 +6,7 @@
   :dependencies [[org.clojure/clojure "1.10.1"]
                  [clj-time "0.14.0"]
                  [cheshire "5.10.2"]
+                 [org.clojure/data.json "0.2.6"]
                  [org.clojure/core.async "1.5.648"]
                  [compojure "1.6.2"]
                  ;; Ditch http-kit
