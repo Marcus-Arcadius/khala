@@ -16,6 +16,7 @@
   (:gen-class))
 
 (use '[clojure.java.shell :only [sh]])
+(use '[clojure.string :only (join split)])
 
 (defn cmd
   ""
@@ -98,6 +99,30 @@
       penf (conj (c/parse-string args true) fun))
      true)))
 
+;; (args-to-envs {:hello "there"})
+(defn args-to-envs [& args]
+  (join "\n"
+        (doseq [[key value] args]
+          (str (name key) "=" (cmd value)))))
+
+(defn pen-sh [command & envs]
+  ;; This is how to run a macro at runtime
+  (eval
+   `(-> (sh "sh" "-c"
+            (str (args-to-envs ~@envs)
+                 (cmd
+                  "pen" "sh" command)))
+        :out)))
+
+(defn lm-complete [request]
+  (let* [b (:body request)
+         envs (:args b)]
+    (c/parse-string
+     (apply
+      ;; The envs come in as json keys
+      pen-sh (conj (c/parse-string envs true) "lm-complete"))
+     true)))
+
 (defroutes app-routes
   (GET "/" [] "<h1>Khala</h1>")
   ;; (GET "/" [] (fn [req] "Do something with req"))
@@ -111,6 +136,12 @@
         ;; (sh "tv" :stdin (str headers))
         prompt
         )
+
+  (POST "/lm-complete" []
+        ;; [:as {headers :headers body :body}]
+        ;; (sh "tv" :stdin (str headers))
+        lm-complete)
+
   ;; curl --header "Content-Type: application/json" --request POST --data '{"username":"xyz","password":"xyz"}' http://127.0.0.1:9837/login
   (POST "/login" [] login)
   (POST "/debug" [] debug)
