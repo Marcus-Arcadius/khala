@@ -16,7 +16,7 @@
   (:gen-class))
 
 (use '[clojure.java.shell :only [sh]])
-(use '[clojure.string :only (join split)])
+(use '[clojure.string :only (join split upper-case replace) :as str])
 
 (defn cmd
   ""
@@ -99,11 +99,17 @@
       penf (conj (c/parse-string args true) fun))
      true)))
 
-;; (args-to-envs {:hello "there"})
-(defn args-to-envs [& args]
+;; (args-to-envs {:hello-yo-yo "there" :my "friend of mine"})
+(defn args-to-envs [args]
   (join "\n"
-        (doseq [[key value] args]
-          (str (name key) "=" (cmd value)))))
+        (map (fn [[key value]]
+               (str
+                (str/replace
+                 (upper-case
+                  (name key))
+                 "-" "_")
+                "=" (cmd value)))
+             (seq args))))
 
 (defn pen-sh [command & envs]
   ;; This is how to run a macro at runtime
