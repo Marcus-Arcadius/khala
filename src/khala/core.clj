@@ -117,7 +117,7 @@
    `(-> (sh "sh" "-c"
             (str (args-to-envs ~@envs)
                  (cmd
-                  "pen" "sh" command)))
+                  "pen" "sh" ~command)))
         :out)))
 
 ;; The proxy system must be able to send back all results,
