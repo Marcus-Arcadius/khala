@@ -23,8 +23,9 @@
   [& args]
   (clojure.string/join
    " "
+   ;; I have to use the jq version so unicode works
    (map (fn [s] (->
-                 (sh "q" :in (str s))
+                 (sh "pen-q-jq" :in (str s))
                  :out)) args)))
 
 ;; (defn app [req]
