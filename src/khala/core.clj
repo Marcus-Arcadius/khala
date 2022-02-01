@@ -113,18 +113,22 @@
              (seq args))))
 
 (defn debug-lm-complete []
-  (sh "pen-test-proxy-lm-complete"))
+  (->
+   (sh "pen-test-proxy-lm-complete")
+   :out))
 
 ;; The proxy system must be able to send back all results,
 ;; Not in the format of a list of directories.
 ;; Rather a singular json containing all results, which are reconstructed as directories
 (defn lm-complete [request]
   (let* [envs-map (:body request)]
-    (sh "lm-complete" :in (str
-                           (args-to-envs
-                            (assoc
-                             envs-map
-                             :PEN_PROXY_RESPONSE "y"))))))
+    (->
+     (sh "lm-complete" :in (str
+                            (args-to-envs
+                             (assoc
+                              envs-map
+                              :PEN_PROXY_RESPONSE "y"))))
+     :out)))
 
 (defroutes app-routes
   (GET "/" [] "<h1>Khala</h1>")
