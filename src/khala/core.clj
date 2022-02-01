@@ -114,39 +114,12 @@
 (defn debug-lm-complete []
   (sh "pen-test-proxy-lm-complete"))
 
-(defn pen-sh [command & envs]
-  ;; This is how to run a macro at runtime
-  ;; (eval
-  ;;  `(-> (sh "sh" "-c"
-  ;;           (str (args-to-envs ~envs)
-  ;;                (cmd
-  ;;                 "pen" "sh" ~command)))
-  ;;       :out))
-  (cmd "sh" "-c"
-       (str (args-to-envs envs)
-            (cmd
-             "pen" "sh" command))))
-
 ;; The proxy system must be able to send back all results,
 ;; Not in the format of a list of directories.
 ;; Rather a singular json containing all results, which are reconstructed as directories
 (defn lm-complete [request]
-  (let* [b (:body request)]
-    (apply
-      ;; The envs come in as json keys
-      pen-sh (conj b "lm-complete"))
-    ;; (c/parse-string
-    ;;  (apply
-    ;;   ;; The envs come in as json keys
-    ;;   pen-sh (conj b "lm-complete"))
-    ;;  true)
-    ;; (tv b)
-    ;; (c/parse-string
-    ;;  (apply
-    ;;   ;; The envs come in as json keys
-    ;;   pen-sh (conj (c/parse-string b true) "lm-complete"))
-    ;;  true)
-    ))
+  (let* [envs-map (:body request)]
+    (sh "lm-complete" :in (args-to-envs envs))))
 
 (defroutes app-routes
   (GET "/" [] "<h1>Khala</h1>")
