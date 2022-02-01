@@ -24,6 +24,7 @@
   (clojure.string/join
    " "
    ;; I have to use the jq version so unicode works
+   ;; But it's much slower. So I have to rewrite this with clojure
    (map (fn [s] (->
                  (sh "pen-q-jq" :in (str s))
                  :out)) args)))
