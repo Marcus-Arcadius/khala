@@ -33,7 +33,8 @@
 ;;    :body    (str (t/time-now))})
 
 (defn tv [s]
-  (sh "tv" :in (str s)))
+  (sh "tv" :in (str s))
+  s)
 
 (defn debug [request]
   ;; (print (slurp (:body request)))
@@ -119,7 +120,11 @@
 ;; Rather a singular json containing all results, which are reconstructed as directories
 (defn lm-complete [request]
   (let* [envs-map (:body request)]
-    (sh "lm-complete" :in (args-to-envs envs-map))))
+    (sh "lm-complete" :in (str
+                           (args-to-envs
+                            (assoc
+                             envs-map
+                             :PEN_PROXY_RESPONSE "y"))))))
 
 (defroutes app-routes
   (GET "/" [] "<h1>Khala</h1>")
