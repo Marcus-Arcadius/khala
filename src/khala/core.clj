@@ -119,7 +119,7 @@
 ;; Rather a singular json containing all results, which are reconstructed as directories
 (defn lm-complete [request]
   (let* [envs-map (:body request)]
-    (sh "lm-complete" :in (args-to-envs envs))))
+    (sh "lm-complete" :in (args-to-envs envs-map))))
 
 (defroutes app-routes
   (GET "/" [] "<h1>Khala</h1>")
