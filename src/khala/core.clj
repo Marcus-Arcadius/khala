@@ -11,6 +11,7 @@
             [ring.middleware.json :as middleware]
             ;; [clojure.java.jdbc :as sql]
             [compojure.route :as route]
+            [khala.rhizome :as rhizome]
 
             [ring.util.io :refer [string-input-stream]])
   (:gen-class))
@@ -35,7 +36,7 @@
 ;;    :body    (str (t/time-now))})
 
 (defn tv [s]
-  (sh "tv" :in (str s))
+  (sh "pen-tv" :in (str s))
   s)
 
 (defn debug [request]

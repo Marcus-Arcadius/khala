@@ -22,7 +22,10 @@
                  ;; [http-kit "2.2.0"]
                  ;; [http-kit "2.4.0"]
                  [http-kit "2.6.0-alpha1"]
-                 [ring "1.6.0-RC3"]]
+                 [ring "1.6.0-RC3"]
+                 ;; rhizome
+                 [io.replikativ/datahike-jdbc "0.1.2-SNAPSHOT"]
+                 [io.replikativ/datahike "0.3.7-SNAPSHOT"]]
   :main ^:skip-aot khala.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
