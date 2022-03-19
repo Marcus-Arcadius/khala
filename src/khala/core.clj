@@ -20,7 +20,10 @@
             [clojure.string :as str]
 
             [khala.libpython :as libpython]
-            [khala.curl :as curl])
+            [khala.rhizome :as rhizome]
+            [khala.pen :as pen]
+            [khala.curl :as curl]
+            [khala.utils :as utils])
   (:gen-class))
 
 ;; this will provide sh/sh
@@ -29,26 +32,9 @@
 ;; :only only works with 'use', not with 'require'
 (use '[clojure.java.shell :only [sh]])
 (use '[clojure.string :only (join split upper-case)])
-
-(defn cmd
-  ""
-  [& args]
-  (clojure.string/join
-   " "
-   ;; I have to use the jq version so unicode works
-   ;; But it's much slower. So I have to rewrite this with clojure
-   (map (fn [s] (->
-                 (sh "pen-q-jq" :in (str s))
-                 :out)) args)))
-
-;; (defn app [req]
-;;   {:status  200
-;;    :headers {"Content-Type" "text/html"}
-;;    :body    (str (t/time-now))})
-
-(defn tv [s]
-  (sh "pen-tv" :in (str s))
-  s)
+(use '[khala.utils :only (cmd tv args-to-envs)])
+(use '[khala.pen :only (prompt debug-lm-complete lm-complete
+                               penf pena)])
 
 (defn debug [request]
   ;; (print (slurp (:body request)))
@@ -66,32 +52,6 @@
 ;;   (POST "/login" request (printPostBody request))
 ;;   (route/not-found {:status 404 :body "<h1>Page not found</h1"}))
 
-(defn penf [& args]
-  ;; This is how to run a macro at runtime
-  (eval
-   `(-> (sh "unbuffer" "penf" "-u" "-nto" "--pool" "-j"
-            ~@args)
-        :out)))
-
-(defn pena [& args]
-  ;; This is how to run a macro at runtime
-  (eval
-   `(-> (sh "unbuffer" "pena" "-u" "-nto" "--pool" "-j"
-            ~@args)
-        :out)))
-
-(comment
- (let [args '("pf-tweet-sentiment/1" "I love pizza")]
-   (eval
-    `(penf fun ~@(c/parse-string args true))))
-
- (let [fun "pf-tweet-sentiment/1"
-       args "[\"I love pizza\"]"]
-   (c/parse-string
-    (apply
-     penf (conj (c/parse-string args true) fun))
-    true)))
-
 (defn login
   [request]
   (let [username (get-in request [:body :username])
@@ -105,44 +65,7 @@
 
 ;; curl --header "Content-Type: application/json" --request POST --data "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"[\\\"I love chocolate\\\"]\"}" http://127.0.0.1:9837/prompt
 
-(defn prompt [request]
-  (let* [b (:body request)
-         fun (:fun b)
-         args (:args b)]
-    (c/parse-string
-     (apply
-      penf (conj (c/parse-string args true) fun))
-     true)))
-
 ;; (args-to-envs {:hello-yo-yo "there" :my "friend of mine"})
-(defn args-to-envs [args]
-  (join "\n"
-        (map (fn [[key value]]
-               (str
-                (str/replace
-                 (upper-case
-                  (name key))
-                 "-" "_")
-                "=" (cmd value)))
-             (seq args))))
-
-(defn debug-lm-complete []
-  (->
-   (sh "pen-test-proxy-lm-complete")
-   :out))
-
-;; The proxy system must be able to send back all results,
-;; Not in the format of a list of directories.
-;; Rather a singular json containing all results, which are reconstructed as directories
-(defn lm-complete [request]
-  (let* [envs-map (:body request)]
-    (->
-     (sh "lm-complete" :in (str
-                            (args-to-envs
-                             (assoc
-                              envs-map
-                              :PEN_PROXY_RESPONSE "y"))))
-     :out)))
 
 (defroutes app-routes
   (GET "/" [] "<h1>Khala</h1>")
@@ -155,8 +78,7 @@
   (POST "/prompt" []
         ;; [:as {headers :headers body :body}]
         ;; (sh "tv" :stdin (str headers))
-        prompt
-        )
+        pen/prompt)
 
   (POST "/lm-complete" []
         ;; [:as {headers :headers body :body}]
