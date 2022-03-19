@@ -2,7 +2,8 @@
   (:require
    ;; openai curl
    [clj-http.client :as client]
-   [clojure.data.json :as json]))
+   [clojure.data.json :as json]
+   [cheshire.core :as c]))
 
 (defn- openai-helper [body]
   (let [json-results
@@ -54,3 +55,15 @@
     (if (nil? ind)
       results
       (subs results 0 ind))))
+
+(defn openai
+  "Query the OpenAI API using curl-based API requests"
+  [request]
+  (let* [b (:body request)
+         fun (:fun b)
+         args (:args b)]
+    ;; (c/parse-string
+    ;;  (apply
+    ;;   penf (conj (c/parse-string args true) fun))
+    ;;  true)
+    ))
