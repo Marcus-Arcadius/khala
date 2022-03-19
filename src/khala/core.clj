@@ -83,7 +83,7 @@
   (POST "/lm-complete" []
         ;; [:as {headers :headers body :body}]
         ;; (sh "tv" :stdin (str headers))
-        lm-complete)
+        pen/lm-complete)
 
   ;; curl --header "Content-Type: application/json" --request POST --data '{"username":"xyz","password":"xyz"}' http://127.0.0.1:9837/login
   (POST "/login" [] login)
