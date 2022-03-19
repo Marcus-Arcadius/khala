@@ -15,10 +15,20 @@ Introduction to khala	doc/intro.md	/^# Introduction to khala$/;"	c
 Removed	CHANGELOG.md	/^### Removed$/;"	S
 [0.1.1] - 2022-01-23	CHANGELOG.md	/^## [0.1.1] - 2022-01-23$/;"	s
 [Unreleased]	CHANGELOG.md	/^## [Unreleased]$/;"	s
-app	src/khala/core.clj	/^(defn app [req]$/;"	f	namespace:khala.core
+args-to-envs	src/khala/core.clj	/^(defn args-to-envs [args]$/;"	f	namespace:khala.core
 artifactId	target/default/classes/META-INF/maven/khala/khala/pom.properties	/^artifactId=khala$/;"	k
+cmd	src/khala/core.clj	/^(defn cmd$/;"	f	namespace:khala.core
+debug	src/khala/core.clj	/^(defn debug [request]$/;"	f	namespace:khala.core
+debug-lm-complete	src/khala/core.clj	/^(defn debug-lm-complete []$/;"	f	namespace:khala.core
 groupId	target/default/classes/META-INF/maven/khala/khala/pom.properties	/^groupId=khala$/;"	k
 khala.core	src/khala/core.clj	/^(ns khala.core$/;"	n
 khala.core-test	test/khala/core_test.clj	/^(ns khala.core-test$/;"	n
+lm-complete	src/khala/core.clj	/^(defn lm-complete [request]$/;"	f	namespace:khala.core
+login	src/khala/core.clj	/^(defn login$/;"	f	namespace:khala.core
+pena	src/khala/core.clj	/^(defn pena [& args]$/;"	f	namespace:khala.core
+penf	src/khala/core.clj	/^(defn penf [& args]$/;"	f	namespace:khala.core
+prompt	src/khala/core.clj	/^(defn prompt [request]$/;"	f	namespace:khala.core
 revision	target/default/classes/META-INF/maven/khala/khala/pom.properties	/^revision=744b2fa2a8a388b063f66997c26fc6b9d02731ba$/;"	k
+test-make-request	src/khala/core.clj	/^(defn test-make-request []$/;"	f	namespace:khala.core
+tv	src/khala/core.clj	/^(defn tv [s]$/;"	f	namespace:khala.core
 version	target/default/classes/META-INF/maven/khala/khala/pom.properties	/^version=0.1.0-SNAPSHOT$/;"	k

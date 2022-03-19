@@ -13,11 +13,22 @@
             [compojure.route :as route]
             [khala.rhizome :as rhizome]
 
-            [ring.util.io :refer [string-input-stream]])
+            [ring.util.io :refer [string-input-stream]]
+
+            ;; This would provide sh/sh, but we can do better
+            ;; [clojure.java.shell :only [sh]]
+            [clojure.string :as str]
+
+            [khala.libpython :as libpython]
+            [khala.curl :as curl])
   (:gen-class))
 
+;; this will provide sh/sh
+;; (require '[clojure.java.shell :as sh])
+;; this will provide sh - more terse
+;; :only only works with 'use', not with 'require'
 (use '[clojure.java.shell :only [sh]])
-(use '[clojure.string :only (join split upper-case) :as str])
+(use '[clojure.string :only (join split upper-case)])
 
 (defn cmd
   ""
@@ -214,7 +225,7 @@
       ;; (middleware/wrap-json-body)
       (middleware/wrap-json-body $ {:keywords? true :bigdecimals? true})
       ;; (middleware/wrap-json-response $ {:pretty false})
-    ))
+      ))
 
 (defn -main [& args]
   (let [port (Integer/parseInt (or (System/getenv "PORT") "9837"))] ;(5)

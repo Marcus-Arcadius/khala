@@ -23,9 +23,17 @@
                  ;; [http-kit "2.4.0"]
                  [http-kit "2.6.0-alpha1"]
                  [ring "1.6.0-RC3"]
+                 
                  ;; rhizome
                  [io.replikativ/datahike-jdbc "0.1.2-SNAPSHOT"]
-                 [io.replikativ/datahike "0.3.7-SNAPSHOT"]]
+                 [io.replikativ/datahike "0.3.7-SNAPSHOT"]
+
+                 ;; openai libpython
+                 [clj-python/libpython-clj "2.018"]
+
+                 ;; openai curl
+                 [clj-http "3.12.3"]
+                 [org.clojure/data.json "2.3.1"]]
   :main ^:skip-aot khala.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all
