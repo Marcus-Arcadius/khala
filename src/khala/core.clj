@@ -75,6 +75,9 @@
   ;; curl -d "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}" -X POST http://127.0.0.1:9837/prompt -H "Content-Type: application/json"
   ;; /usr/bin/curl --header "Content-Type: application/json" --request POST --data-binary '{"fun":"xyz","args":"xyz"}' http://127.0.0.1:800/prompt
 
+  (POST "/penai-curl" []
+        curl/openai)
+
   (POST "/prompt" []
         ;; [:as {headers :headers body :body}]
         ;; (sh "tv" :stdin (str headers))
