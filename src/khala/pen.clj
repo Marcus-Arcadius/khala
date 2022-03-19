@@ -6,23 +6,15 @@
 
 ;; pen.el interop
 
-(defn prompt [request]
-  (let* [b (:body request)
-         fun (:fun b)
-         args (:args b)]
-    (c/parse-string
-     (apply
-      penf (conj (c/parse-string args true) fun))
-     true)))
+;; The proxy system must be able to send back all results,
+;; Not in the format of a list of directories.
+;; Rather a singular json containing all results, which are reconstructed as directories
 
 (defn debug-lm-complete []
   (->
    (sh "pen-test-proxy-lm-complete")
    :out))
 
-;; The proxy system must be able to send back all results,
-;; Not in the format of a list of directories.
-;; Rather a singular json containing all results, which are reconstructed as directories
 (defn lm-complete [request]
   (let* [envs-map (:body request)]
     (->
@@ -46,6 +38,15 @@
    `(-> (sh "unbuffer" "pena" "-u" "-nto" "--pool" "-j"
             $HOME@args)
         :out)))
+
+(defn prompt [request]
+  (let* [b (:body request)
+         fun (:fun b)
+         args (:args b)]
+    (c/parse-string
+     (apply
+      penf (conj (c/parse-string args true) fun))
+     true)))
 
 
 
