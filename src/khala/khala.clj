@@ -1,39 +1,44 @@
 (ns khala.khala
-  (:require [org.httpkit.server :refer [run-server] :as server]
-            [clj-time.core :as t]
-            [cheshire.core :as c]
-            [clj-http.client :as http]
-            [compojure.core :refer :all]
-            [clojure.core.async :as a]
-            ;; For test-make-request
-            [clojure.data.json :as json]
-            [compojure.handler :as handler]
-            [ring.middleware.json :as middleware]
-            ;; [clojure.java.jdbc :as sql]
-            [compojure.route :as route]
+  (:require
+   ;; HTTP server
+   [org.httpkit.server :refer [run-server] :as server]
+   [clj-time.core :as t]
+   [cheshire.core :as c]
+   [clj-http.client :as http]
+   [compojure.core :refer :all]
+   [clojure.core.async :as a]
+   ;; For test-make-request
+   [clojure.data.json :as json]
+   [compojure.handler :as handler]
+   [ring.middleware.json :as middleware]
+   ;; [clojure.java.jdbc :as sql]
+   [compojure.route :as route]
+   [ring.util.io :refer [string-input-stream]]
 
-            [ring.util.io :refer [string-input-stream]]
+   ;; Clojure
+   ;; This would provide sh/sh, but we can do better
+   ;; [clojure.java.shell :only [sh]]
+   [clojure.string :as str]
 
-            ;; This would provide sh/sh, but we can do better
-            ;; [clojure.java.shell :only [sh]]
+   ;; datahike database
+   [khala.rhizome :as rhizome]
 
-            [clojure.string :as str]
-            [khala.utils :as utils]
+   ;; openai - should belong to pen only
+   [khala.libpython :as libpython]
 
-            ;; datahike database
-            [khala.rhizome :as rhizome]
+   ;; Mount fuse filesystems based on prompting
+   [khala.mount :as mount]
+   ;; There may be other types of filesystems under mount
+   ;; [khala.pensieve :as pensieve]
 
-            ;; openai - should belong to pen only
-            [khala.libpython :as libpython]
-            
-            [khala.mount :as mount]
-            ;; There may be other types of filesystems under mount
-            ;; [khala.pensieve :as pensieve]
+   ;; Pen.el interop -- prompt APIs with Pen.el
+   [khala.pen :as pen]
 
-            [khala.pen :as pen]
-            [khala.curl :as curl]
-            [khala.utils :as utils]
-            [khala.rc :as rc])
+   ;; Make curl requests to the OpenAI API
+   [khala.curl :as curl]
+
+   [khala.utils :as utils]
+   [khala.rc :as rc])
   (:gen-class))
 
 ;; this will provide sh/sh
