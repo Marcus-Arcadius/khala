@@ -29,14 +29,14 @@
   ;; This is how to run a macro at runtime
   (eval
    `(-> (sh "unbuffer" "penf" "-u" "-nto" "--pool" "-j"
-            $HOME@args)
+            ~@args)
         :out)))
 
 (defn pena [& args]
   ;; This is how to run a macro at runtime
   (eval
    `(-> (sh "unbuffer" "pena" "-u" "-nto" "--pool" "-j"
-            $HOME@args)
+            ~@args)
         :out)))
 
 (defn prompt [request]
@@ -55,7 +55,7 @@
 (comment
   (let [args '("pf-tweet-sentiment/1" "I love pizza")]
     (eval
-     `(penf fun $HOME@(c/parse-string args true))))
+     `(penf fun ~@(c/parse-string args true))))
 
   (let [fun "pf-tweet-sentiment/1"
         args "[\"I love pizza\"]"]

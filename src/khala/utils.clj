@@ -59,6 +59,6 @@
   "Pull in all the lexical bindings into a map for passing somewhere else."
   []
   (let [symbols (keys &env)]
-    (zipmap (map (fn [sym] `(quote $HOME(keyword sym)))
+    (zipmap (map (fn [sym] `(quote ~(keyword sym)))
                  symbols)
             symbols)))
