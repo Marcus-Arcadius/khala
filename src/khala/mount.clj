@@ -3,7 +3,7 @@
   (:require
    [clojure.repl :refer :all]
    [khala.rc :as rc]
-   [pensieve.fuse-pensieve :as fpensieve]
+   [khala.fuse-pensieve :as fpensieve]
    [clojure.core.async
     :as a
     :refer [>! <! >!! <!! go chan buffer close! thread
@@ -47,7 +47,7 @@
 
       ;; This mode is called 'pensieve'.
       ;; It's the prototype, and will simply imagine a filesystem.
-      (= "pensieve" type) (fpensieve/main dir)
+      (= "pensieve" type) (fpensieve/mount-pensieve dir)
       :else (println "Please use a known system as first arg [pensieve]"))))
 
 (defn pensieve-test []

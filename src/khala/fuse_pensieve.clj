@@ -137,9 +137,7 @@
               (println "Unmounting " mnt)
               (umount-it!)))))
 
-(defn main
-  "I don't do a whole lot ... yet."
-  [dir]
+(defn mount-pensieve [dir]
   (cleanup-hooks dir)
   (println "Mounting: " dir)
   (deref (mount-it! dir))
