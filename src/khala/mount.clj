@@ -28,27 +28,24 @@
 
 (def simplechan (chan))
 
-(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (let [[type dir] args]
-    ;; Wrapping into a shell command is unneccessary with sh
+(defn pensieve [type dir]
+      ;; Wrapping into a shell command is unneccessary with sh
     ;; (sh (cmd "mkdir" "-p" dir))
-    (sh "mkdir" "-p" dir)
-    ;; (sh "sh" "-c" (str (cmd "cmd" "mkdir" "-p" dir) " | pen-tv"))
-    (cond
-      ;; Make it so when a path that doesn't exist is read, it is created
+  (sh "mkdir" "-p" dir)
+  ;; (sh "sh" "-c" (str (cmd "cmd" "mkdir" "-p" dir) " | pen-tv"))
+  (cond
+    ;; Make it so when a path that doesn't exist is read, it is created
 
-      ;; Make multiple modes. For example:
-      ;; - a computer's filesystem
-      ;; - chatbot memories
+    ;; Make multiple modes. For example:
+    ;; - a computer's filesystem
+    ;; - chatbot memories
 
-      ;; - loom mode
+    ;; - loom mode
 
-      ;; This mode is called 'pensieve'.
-      ;; It's the prototype, and will simply imagine a filesystem.
-      (= "pensieve" type) (fpensieve/mount-pensieve dir)
-      :else (println "Please use a known system as first arg [pensieve]"))))
+    ;; This mode is called 'pensieve'.
+    ;; It's the prototype, and will simply imagine a filesystem.
+    (= "pensieve" type) (fpensieve/mount-pensieve dir)
+    :else (println "Please use a known system as first arg [pensieve]")))
 
 (defn pensieve-test []
   (put! simplechan (-main "pensieve" (expand-home "$HOME/pensieve")) )

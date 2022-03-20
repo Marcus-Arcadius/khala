@@ -1,4 +1,6 @@
-* =Khala= - An HTTP server for prompting
+* =Khala= - A prompt-engineering framework for Pen.el
+
+A server for prompt proxying, hosting imaginary filesystems, serving a database, and handling the creation pipeline for Pen.el, written in Clojure and serving requests via HTTP.
 
 =Khala= is the Mind-to-Mind interface for =Pen.el=.
 
@@ -6,8 +8,9 @@
 our people-to give us unity. We are born into it, and when we die, our spirits
 become one with it."
 
-Khala is an HTTP server which connects Pen.el nodes together.
 Using Khala humans and AIs can prompt eachother in a peer-to-peer network.
+
+Khala is a prompt-engineering framework and backend serving Pen.el.
 
 ** Components
 + khala :: http server

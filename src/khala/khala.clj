@@ -26,7 +26,9 @@
             ;; openai - should belong to pen only
             [khala.libpython :as libpython]
             
-            [khala.pensieve :as pensieve]
+            [khala.mount :as mount]
+            ;; There may be other types of filesystems under mount
+            ;; [khala.pensieve :as pensieve]
 
             [khala.pen :as pen]
             [khala.curl :as curl]
@@ -65,6 +67,12 @@
   (let [username (get-in request [:body :username])
         password (get-in request [:body :password])]
     (sh "tv" :stdin (str request))))
+
+(defn mount
+  [request]
+  (let [type (get-in request [:body :type])
+        dir (get-in request [:body :dir])]
+    (mount/pensieve type dir)))
 
 ;; https:/www.baeldung.com/clojure-ring
 ;; (app {:uri "/prompt" :request-method :post :headers {"Content-Type" "application/json"} :body "{\"fun\": \"pf-tweet-sentiment/1\", \"args\": \"I love chocolate\"}"})
