@@ -40,7 +40,7 @@
    ;; Make curl requests to the OpenAI API
    [khala.curl :as curl]
 
-   [khala.utils :as utils]
+   [khala.utils :as u]
    [khala.rc :as rc])
   (:gen-class))
 

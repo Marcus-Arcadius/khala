@@ -12,7 +12,8 @@
 (defn cmd
   ""
   [& args]
-  (clojure.string/join
+  ;; clojure.string/join
+  (join
    " "
    ;; I have to use the jq version so unicode works
    ;; But it's much slower. So I have to rewrite this with clojure

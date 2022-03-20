@@ -3,7 +3,7 @@
   (:require [clojure.string :as str]
             [khala.khala :as khala]
             [khala.pensieve :as pensieve]
-            [khala.utils :as utils])
+            [khala.utils :as u])
   (:gen-class))
 
 (defn start-khala [port]

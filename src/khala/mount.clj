@@ -4,6 +4,7 @@
    [clojure.repl :refer :all]
    [khala.rc :as rc]
    [khala.fuse-pensieve :as fpensieve]
+   [khala.utils :as u]
    [clojure.core.async
     :as a
     :refer [>! <! >!! <!! go chan buffer close! thread
@@ -11,23 +12,15 @@
   (:gen-class))
 
 (use '[clojure.java.shell :only [sh]])
-
-(defn cmd
-  ""
-  [& args]
-  (clojure.string/join
-   " "
-   (map (fn [s] (->
-                 (sh "q" :in (str s))
-                 :out)) args)))
+(use '[clojure.string :only (join split upper-case)])
 
 (def simplechan (chan))
 
 (defn pensieve [type dir]
       ;; Wrapping into a shell command is unneccessary with sh
-    ;; (sh (cmd "mkdir" "-p" dir))
+    ;; (sh (u/cmd "mkdir" "-p" dir))
   (sh "mkdir" "-p" dir)
-  ;; (sh "sh" "-c" (str (cmd "cmd" "mkdir" "-p" dir) " | pen-tv"))
+  ;; (sh "sh" "-c" (str (u/cmd "u/cmd" "mkdir" "-p" dir) " | pen-tv"))
   (cond
     ;; Make it so when a path that doesn't exist is read, it is created
 
