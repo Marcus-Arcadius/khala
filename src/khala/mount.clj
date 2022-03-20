@@ -1,12 +1,13 @@
-(ns pensieve.core
+;; this was pensieve.core
+(ns khala.mount
   (:require
    [clojure.repl :refer :all]
-   ;; [pensieve.rc :as rc]
+   [khala.rc :as rc]
    [pensieve.fuse-pensieve :as fpensieve]
    [clojure.core.async
-              :as a
-              :refer [>! <! >!! <!! go chan buffer close! thread
-                      alts! alts!! take! put! timeout]])
+    :as a
+    :refer [>! <! >!! <!! go chan buffer close! thread
+            alts! alts!! take! put! timeout]])
   (:gen-class))
 
 (use '[clojure.java.shell :only [sh]])
@@ -54,7 +55,7 @@
   (take! simplechan println))
 
 (defn pensieve-test-list-existing-dirs []
-  @pensieve.pensieve/directories-atom)
+  @khala.pensieve/directories-atom)
 
 (defn pensieve-test-gen-list-files-of-existing-dir []
-  (pensieve.pensieve/get-pensieve-filenames (nth @pensieve.pensieve/directories-atom 2)))
+  (khala.pensieve/get-pensieve-filenames (nth @khala.pensieve/directories-atom 2)))

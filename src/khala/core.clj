@@ -21,6 +21,7 @@
 
             [khala.libpython :as libpython]
             [khala.rhizome :as rhizome]
+            [khala.pensieve :as pensieve]
             [khala.pen :as pen]
             [khala.curl :as curl]
             [khala.utils :as utils])

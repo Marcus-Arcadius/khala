@@ -1,8 +1,8 @@
-(ns pensieve.fuse-pensieve
+(ns khala.fuse-pensieve
   (:require
    [clojure.repl :refer :all]
-   [pensieve.pensieve :as pensieve]
-   [pensieve.util :as u])
+   [khala.pensieve :as pensieve]
+   [khala.utils :as u])
   (:import
    (java.nio ByteBuffer)
    (ru.serce.jnrfuse ErrorCodes FuseStubFS)

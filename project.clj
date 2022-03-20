@@ -33,7 +33,15 @@
 
                  ;; openai curl
                  [clj-http "3.12.3"]
-                 [org.clojure/data.json "2.3.1"]]
+                 [org.clojure/data.json "2.3.1"]
+
+                 ;; pensieve
+                 ;; [clj-http "3.9.1"]
+                 ;; [org.clojure/core.async "0.4.500"]
+                 [org.clojure/java.jdbc "0.7.8"]
+                 ;; [cheshire "5.8.1"]
+                 [org.clojure/tools.reader "1.3.2"]
+                 [com.github.serceman/jnr-fuse "0.5.7"]]
   :main ^:skip-aot khala.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all

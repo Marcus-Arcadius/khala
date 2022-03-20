@@ -9,6 +9,12 @@ become one with it."
 Khala is an HTTP server which connects Pen.el nodes together.
 Using Khala humans and AIs can prompt eachother in a peer-to-peer network.
 
+** Components
++ khala :: http server
++ rhizome :: database
++ pensieve :: filesystem
++ creation :: product pipeline
+
 ** Installation
 Download from http://github.com/semiosis/khala.
 

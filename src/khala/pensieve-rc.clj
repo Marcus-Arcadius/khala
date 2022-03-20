@@ -1,4 +1,4 @@
-(ns pensieve.rc
+(ns khala.rc
   (:require
    [clojure.repl :refer :all])
   (:gen-class))

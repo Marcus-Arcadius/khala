@@ -1,8 +1,8 @@
-(ns pensieve.pensieve
+(ns khala.pensieve
   (:require
    [clj-http.client :as client]
    [clojure.repl :refer :all]
-   [pensieve.util :as u]
+   [khala.utils :as u]
    ;; [clojure.data.json :as json]
    [cheshire.core :as json])
   (:gen-class))
