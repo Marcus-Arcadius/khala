@@ -13,10 +13,10 @@ Using Khala humans and AIs can prompt eachother in a peer-to-peer network.
 Khala is a prompt-engineering framework and backend serving Pen.el.
 
 ** Components
-+ khala :: http server
-+ rhizome :: database
-+ pensieve :: filesystem
-+ creation :: product pipeline
+- khala (http server)
+- rhizome (database)
+- pensieve (filesystem)
+- creation (product pipeline)
 
 ** Installation
 Download from http://github.com/semiosis/khala.
