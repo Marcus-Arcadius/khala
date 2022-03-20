@@ -21,11 +21,6 @@
                  (sh "q" :in (str s))
                  :out)) args)))
 
-(defn expand-home [s]
-  (as-> s binding
-    (clojure.string/replace-first binding "~" (System/getProperty "user.home"))
-    (clojure.string/replace-first binding "$HOME" (System/getProperty "user.home"))))
-
 (def simplechan (chan))
 
 (defn pensieve [type dir]
@@ -46,10 +41,6 @@
     ;; It's the prototype, and will simply imagine a filesystem.
     (= "pensieve" type) (fpensieve/mount-pensieve dir)
     :else (println "Please use a known system as first arg [pensieve]")))
-
-(defn pensieve-test []
-  (put! simplechan (-main "pensieve" (expand-home "$HOME/pensieve")) )
-  (take! simplechan println))
 
 (defn pensieve-test-list-existing-dirs []
   @khala.pensieve/directories-atom)

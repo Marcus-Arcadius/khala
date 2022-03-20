@@ -3,36 +3,12 @@
    [clj-http.client :as client]
    [clojure.repl :refer :all]
    [khala.utils :as u]
+   [khala.pen :as pen]
    ;; [clojure.data.json :as json]
    [cheshire.core :as json])
   (:gen-class))
 
 (use '[clojure.java.shell :only [sh]])
-
-(defn cmd
-  ""
-  [& args]
-  (clojure.string/join
-   " "
-   (map (fn [s] (->
-                 ;; using pen-q-jq here would enable unicode, but be slower
-                 (sh "q" :in (str s))
-                 :out)) args)))
-
-(defn tv [s]
-  (sh "pen-tv" :in s)
-  s)
-
-(defn tvipe [s]
-  (sh "pen-tvipe" :in s)
-  s)
-
-(defn penf [& args]
-  ;; This is how to run a macro at runtime
-  (eval
-   `(-> (sh "unbuffer" "penf" "-u" "-nto" "--pool" "-j"
-            ~@args)
-        :out)))
 
 (defn api-get-pensieve-directories [directory]
   ;; In theory I could prompt over https
@@ -41,14 +17,14 @@
                     {:as :json})
         :body :message))
   (comment
-    (penf "pf-list-subdirectories/2"
+    (pen/penf "pf-list-subdirectories/2"
           "/dumbledores_adventures/"
           ;; Existing dirs. Frustratingly, when empty, this will instead use the default
           ""))
   (json/decode
-   (penf "pf-list-subdirectories/1"
+   (pen/penf "pf-list-subdirectories/1"
          ;; "/dumbledores_adventures/"
-         directory)))
+             directory)))
 
 (def mapi-get-pensieve-directories (memoize api-get-pensieve-directories))
 
@@ -63,13 +39,12 @@
   (map
    (fn [s] (str s ".txt"))
    (json/decode
-    (penf
+    (pen/penf
      "pf-list-subdirectories/1"
      (str "/dumbledores_adventures/" directory "/")))))
 ;; This gets the body and then gets the message from the body
 
 (def mapi-get-pensieve-filenames (memoize api-get-pensieve-filenames))
-
 
 ;; How does the threading macro work with a :body key as the first form?
 ;; I think it converts :body to (:body).
@@ -80,7 +55,7 @@
                 ;; {:as :stream}
                 {:as :byte-array})
                :body))
-  (penf
+  (pen/penf
    "pf-generate-the-contents-of-a-new-file/6"
    ""
    (tv directory)
@@ -133,13 +108,10 @@
 (defn get-few-pensieve-filenames [directory]
   (into [] (take 10 (get-pensieve-filenames directory))))
 
-(defn get-filename-only [s]
-  (nth (reverse (u/split-by-slash s)) 0))
-
 (defn get-file-list-clean [directory]
   (comment
     (doall
-     (into [] (map get-filename-only (get-few-pensieve-filenames directory)))))
+     (into [] (map u/get-filename-only (get-few-pensieve-filenames directory)))))
   (get-few-pensieve-filenames directory)
   ;; (get-few-pensieve-filenames directory)
   )

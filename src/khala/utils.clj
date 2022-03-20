@@ -29,6 +29,10 @@
   (sh "pen-tv" :in (str s))
   s)
 
+(defn tvipe [s]
+  (sh "pen-tvipe" :in s)
+  s)
+
 (defn args-to-envs [args]
   (join "\n"
         (map (fn [[key value]]
@@ -62,3 +66,11 @@
     (zipmap (map (fn [sym] `(quote ~(keyword sym)))
                  symbols)
             symbols)))
+
+(defn expand-home [s]
+  (as-> s binding
+    (clojure.string/replace-first binding "~" (System/getProperty "user.home"))
+    (clojure.string/replace-first binding "$HOME" (System/getProperty "user.home"))))
+
+(defn get-filename-only [s]
+  (nth (reverse (split-by-slash s)) 0))
