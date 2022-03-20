@@ -10,21 +10,38 @@
 
 (use '[clojure.java.shell :only [sh]])
 
-(defn api-get-pensieve-directories [directory]
+;; (defn api-get-pensieve-directories [directory]
+;;   ;; In theory I could prompt over https
+;;   (comment
+;;     (-> (client/get "https://dog.ceo/api/breeds/list/all"
+;;                     {:as :json})
+;;         :body :message))
+;;   (comment
+;;     (pen/penf "pf-list-subdirectories/2"
+;;           "/dumbledores_adventures/"
+;;           ;; Existing dirs. Frustratingly, when empty, this will instead use the default
+;;           ""))
+;;   (json/decode
+;;    (pen/penf "pf-list-subdirectories/1"
+;;          ;; "/dumbledores_adventures/"
+;;              directory)))
+
+(defn api-get-pensieve-directories []
   ;; In theory I could prompt over https
   (comment
     (-> (client/get "https://dog.ceo/api/breeds/list/all"
                     {:as :json})
         :body :message))
   (comment
-    (pen/penf "pf-list-subdirectories/2"
-          "/dumbledores_adventures/"
-          ;; Existing dirs. Frustratingly, when empty, this will instead use the default
-          ""))
+    (json/decode
+     (pen/penf "pf-list-subdirectories/1"
+               ;; "/dumbledores_adventures/"
+               directory)))
   (json/decode
-   (pen/penf "pf-list-subdirectories/1"
-         ;; "/dumbledores_adventures/"
-             directory)))
+   (pen/penf "pf-list-subdirectories/2"
+             "/dumbledores_adventures/"
+             ;; Existing dirs. Frustratingly, when empty, this will instead use the default
+             "")))
 
 (def mapi-get-pensieve-directories (memoize api-get-pensieve-directories))
 
@@ -85,13 +102,21 @@
   (let [[_ directory s] (u/split-by-slash p)]
     (mapi-get-pensieve-file directory s)))
 
-(defn get-pensieve-directories [directory]
-  (mapi-get-pensieve-directories directory)
-  ;; (->> (mapi-get-pensieve-directories)
-  ;;      keys
-  ;;      (map #(subs (str %) 1))
-  ;;      (into []))
-  )
+;; (defn get-pensieve-directories [directory]
+;;   (mapi-get-pensieve-directories directory)
+;;   ;; (->> (mapi-get-pensieve-directories)
+;;   ;;      keys
+;;   ;;      (map #(subs (str %) 1))
+;;   ;;      (into []))
+;;   )
+
+;; This is kinda useless -- it postprocesses result of the API call
+;; but it's already clean
+(defn get-pensieve-directories []
+  (->> (mapi-get-pensieve-directories)
+       ;; keys
+       ;; (map #(subs (str %) 1))
+       (into [])))
 
 (def directories-atom (atom nil))
 
