@@ -11,15 +11,6 @@
 
 (use '[clojure.java.shell :only [sh]])
 
-(defn cmd
-  ""
-  [& args]
-  (clojure.string/join
-   " "
-   (map (fn [s] (->
-                 (sh "q" :in (str s))
-                 :out)) args)))
-
 (defn enoent-error []
   (* -1 (ErrorCodes/ENOENT)))
 
