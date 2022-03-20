@@ -34,6 +34,9 @@
    ;; Pen.el interop -- prompt APIs with Pen.el
    [khala.pen :as pen]
 
+   ;; Creation - prompt engineering creation pipeline
+   [khala.creation :as creation]
+
    ;; Make curl requests to the OpenAI API
    [khala.curl :as curl]
 
