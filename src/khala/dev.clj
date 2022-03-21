@@ -10,8 +10,13 @@
   (sh "firefox" "http:/127.0.0.1:9897")
   (stop-khala))
 
+(defonce mnt (atom nil))
+
+;; This has to be able to mount asynchronously
 (defn mount-pensieve []
-  (mount/pensieve "pensieve" (u/expand-home "$HOME/pensieve")))
+  (swap! mnt
+         (mount/pensieve "pensieve" (u/expand-home "$HOME/pensieve"))))
 
 (defn unmount-pensieve []
-  (sh "umount" (u/expand-home  "$HOME/pensieve")))
+  (sh "umount" (u/expand-home  "$HOME/pensieve"))
+  (sh "umount" "-l" (u/expand-home  "$HOME/pensieve")))
