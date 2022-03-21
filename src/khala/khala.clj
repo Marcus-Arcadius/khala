@@ -176,8 +176,16 @@
       ;; (middleware/wrap-json-response $ {:pretty false})
       ))
 
+(def serv (atom nil))
+
 (defn start [port]
-  (server/run-server app {:port port
-                          :thread 8
-                          :max-body 8388608})
-  (println (str "Running Khala at http:/127.0.0.1:" port "/")))
+  (reset! serv (server/run-server app {:port port
+                                      :thread 8
+                                      :max-body 8388608
+                                       :legacy-return-value? false}))
+  (println (str "Running Khala at http:/127.0.0.1:" port "/"))
+  true)
+
+(defn stop []
+  (server/server-stop! @serv)
+  (println "Stopped Khala"))

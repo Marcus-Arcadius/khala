@@ -6,8 +6,18 @@
   (testing "FIXME, I fail."
     (is (= 0 1))))
 
+(deftest a-works- test
+  (testing "FIXME, I fail."
+    (is (= 0 0))))
+
+;; Test the full life-cycle
 (deftest khala-start-test
-  (let [khala-port 9897]
-    ;; This isn't asserting anything yet
-    (start-khala khala-port)
-    (is (= 1 1))))
+  (testing "khala starts and is available"
+    (let [khala-port 9897]
+      ;; This isn't asserting anything yet
+      (start-khala khala-port)
+      (testing "khala available"
+        (is (= 0 1)))
+      (is (= 1 1))
+      (stop-khala)
+      (is (= 0 1)))))

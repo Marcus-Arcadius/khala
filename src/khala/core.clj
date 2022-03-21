@@ -9,6 +9,9 @@
 (defn start-khala [port]
   (khala/start port))
 
+(defn stop-khala []
+  (khala/stop))
+
 (defn -main [& args]
   ;; "Immediately start Khala. It's through Khala that the other systems can be controlled."
   (start-khala (Integer/parseInt (or (System/getenv "PORT") "9837"))))
