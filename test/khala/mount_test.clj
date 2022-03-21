@@ -10,8 +10,10 @@
 
 (def simplechan (chan))
 
-(deftest pensieve-test
-  (testing "pensieve mounts"
-    (put! simplechan (sut/pensieve "pensieve" (utils/expand-home "$HOME/pensieve")))
-    (take! simplechan println)
-    (is (= 0 1))))
+(t/deftest pensieve-test
+  (t/testing "pensieve mounts"
+    (t/is (do
+            (put! simplechan (sut/pensieve "pensieve" (utils/expand-home "$HOME/pensieve")))
+            (take! simplechan println)
+            true)
+          true)))

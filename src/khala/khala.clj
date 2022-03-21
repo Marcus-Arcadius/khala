@@ -176,7 +176,7 @@
       ;; (middleware/wrap-json-response $ {:pretty false})
       ))
 
-(def serv (atom nil))
+(defonce serv (atom nil))
 
 (defn start [port]
   (reset! serv (server/run-server app {:port port
@@ -188,4 +188,5 @@
 
 (defn stop []
   (server/server-stop! @serv)
-  (println "Stopped Khala"))
+  (println "Stopped Khala")
+  true)

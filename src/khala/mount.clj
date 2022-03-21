@@ -14,8 +14,6 @@
 (use '[clojure.java.shell :only [sh]])
 (use '[clojure.string :only (join split upper-case)])
 
-(def simplechan (chan))
-
 (defn pensieve [type dir]
       ;; Wrapping into a shell command is unneccessary with sh
     ;; (sh (u/cmd "mkdir" "-p" dir))
