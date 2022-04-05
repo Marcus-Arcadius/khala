@@ -129,7 +129,17 @@
               (umount-it!)))))
 
 (defn mount-pensieve [dir]
+  ;; The cleanup hook is added to the main process' shutdown hook.
+  ;; That means it happens when the main process dies.
+  ;; But I don't want to wait on the main process to unmount. I'd rather handle this asynchronously.
   (cleanup-hooks dir)
   (println "Mounting: " dir)
-  (deref (mount-it! dir))
-  (println "Try going to the directory and running ls."))
+  ;; It hangs main thread here.
+  ;; I think it's because it's dereffing a future.
+  ;; I should simply not deref it.
+  ;; Instead, add to a list of mounts.
+  ;; Something else should keep the server running.
+  ;; When the server process exits, all mountpoints should be cleaned up.
+  ;; (deref (mount-it! dir))
+  ;; (println "Try going to the directory and running ls.")
+  (mount-it! dir))

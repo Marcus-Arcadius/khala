@@ -74,7 +74,7 @@
   [request]
   (let [username (get-in request [:body :username])
         password (get-in request [:body :password])]
-    (sh "tv" :stdin (str request))))
+    (sh "pen-tv" :in (str request))))
 
 (defn mount
   [request]
@@ -104,12 +104,12 @@
 
   (POST "/prompt" []
         ;; [:as {headers :headers body :body}]
-        ;; (sh "tv" :stdin (str headers))
+        ;; (sh "tv" :in (str headers))
         pen/prompt)
 
   (POST "/lm-complete" []
         ;; [:as {headers :headers body :body}]
-        ;; (sh "tv" :stdin (str headers))
+        ;; (sh "tv" :in (str headers))
         pen/lm-complete)
 
   ;; curl --header "Content-Type: application/json" --request POST --data '{"username":"xyz","password":"xyz"}' http:/127.0.0.1:9837/login

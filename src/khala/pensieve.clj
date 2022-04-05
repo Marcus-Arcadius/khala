@@ -5,7 +5,8 @@
    [khala.utils :as u]
    [khala.pen :as pen]
    ;; [clojure.data.json :as json]
-   [cheshire.core :as json])
+   [cheshire.core :as json]
+   [clojure.java.shell :as sh])
   (:gen-class))
 
 (use '[clojure.java.shell :only [sh]])
@@ -38,10 +39,15 @@
                ;; "/dumbledores_adventures/"
                directory)))
   (json/decode
+   #_(binding [sh/*sh-dir* "/pensieve"] 
+     (pen/penf "pf-list-subdirectories/2"
+               "/dumbledores_adventures/"
+               ;; Existing dirs. Frustratingly, when empty, this will instead use the default
+               ""))
    (pen/penf "pf-list-subdirectories/2"
-             "/dumbledores_adventures/"
-             ;; Existing dirs. Frustratingly, when empty, this will instead use the default
-             "")))
+               "/dumbledores_adventures/"
+               ;; Existing dirs. Frustratingly, when empty, this will instead use the default
+               "")))
 
 (def mapi-get-pensieve-directories (memoize api-get-pensieve-directories))
 

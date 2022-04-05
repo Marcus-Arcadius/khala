@@ -13,10 +13,16 @@
 (defonce mnt (atom nil))
 
 ;; This has to be able to mount asynchronously
-(defn mount-pensieve []
+(defn dev-mount-pensieve []
+  ;; When it mounts, the REPL becomes locked.
+  ;; I have to find a way to run it asynchronously
   (swap! mnt
          (mount/pensieve "pensieve" (u/expand-home "$HOME/pensieve"))))
 
 (defn unmount-pensieve []
-  (sh "umount" (u/expand-home  "$HOME/pensieve"))
-  (sh "umount" "-l" (u/expand-home  "$HOME/pensieve")))
+  (sh "pen-sps" "zrepl" "-cm" "umount" (u/expand-home  "$HOME/pensieve"))
+  ;; (sh "umount" "-l" (u/expand-home  "$HOME/pensieve"))
+  )
+
+(defn pen-test-interactive-clj [a b c]
+  (sh "pen-tv" :in a))
